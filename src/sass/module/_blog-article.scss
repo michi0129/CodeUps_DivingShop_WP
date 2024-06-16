@@ -1,0 +1,112 @@
+@use "global" as *;
+
+.blog-article__date {
+    font-family: $second-font-family;
+    font-size: rem(14);
+    line-height: 1;
+}
+
+.blog-article__title {
+    margin-top: rem(15);
+    font-size: rem(24);
+    font-weight: $medium;
+    line-height: 1;
+    padding-bottom: rem(8);
+    border-bottom: 1px solid $green;
+}
+
+.blog-article__contents {
+    margin-top: rem(24);
+    @include mq(md) {
+        margin-top: rem(40);
+    }
+}
+
+.blog-article__text {
+    margin-top: rem(24);
+    line-height: 1.5;
+    @include mq(md) {
+        margin-top: rem(40);
+    }
+}
+
+.blog-article__img:not(:first-child) {
+    margin-top: rem(24);
+    @include mq(md) {
+        margin-top: rem(40);
+    }
+}
+
+.blog-article__lists {
+    margin-top: rem(24);
+    @include mq(md) {
+        margin-top: rem(40);
+    }
+}
+
+.blog-article__list {
+    padding-left: rem(28);
+    position: relative;
+}
+
+.blog-article__list:not(:first-child) {
+    margin-top: rem(4);
+}
+
+.blog-article__list::before {
+    content: "";
+    display: block;
+    position: absolute;
+    background-image: url("../images/common/starfish-green.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: rem(18);
+    height: rem(18);
+    top: rem(3);
+    left: rem(-2);
+}
+
+/* WP */
+.blog-article p {
+    margin-top: rem(24);
+    line-height: 1.5;
+    @include mq(md) {
+        margin-top: rem(40);
+    }
+}
+
+.blog-article figure {
+    margin-top: rem(24);
+    @include mq(md) {
+        margin-top: rem(40);
+    }
+}
+
+.blog-article ul {
+    margin-top: rem(24);
+    @include mq(md) {
+        margin-top: rem(40);
+    }
+}
+
+.blog-article ul li {
+    padding-left: rem(28);
+    position: relative;
+}
+
+.blog-article ul li:not(:first-child) {
+    margin-top: rem(4);
+}
+
+.blog-article ul li::before {
+    content: "";
+    display: block;
+    position: absolute;
+    background-image: url("../images/common/starfish-green.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: rem(18);
+    height: rem(18);
+    top: rem(3);
+    left: rem(-2);
+}
