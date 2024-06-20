@@ -334,40 +334,4 @@ jQuery(function ($) {
       }
     });
   });
-
-  // エラーメッセージの表示場所変更
-  // document.addEventListener('wpcf7invalid', function(event) {
-  //   var form = event.detail.into;
-  //   var errorMessages = event.detail.apiResponse.message;
-  
-  //   // エラーメッセージ表示エリアをクリア
-  //   var errorContainer = form.querySelector('.sub-form__error');
-  //   errorContainer.innerHTML = '';
-  
-  //   // エラーメッセージを追加
-  //   errorContainer.innerHTML = '<div class="cf7-error-messages">' + errorMessages + '</div>';
-  // }, false);
-  
-  // document.addEventListener('wpcf7spam', function(event) {
-  //   var form = event.detail.into;
-  //   var spamMessage = event.detail.apiResponse.message;
-  
-  //   var errorContainer = form.querySelector('.sub-form__error');
-  //   errorContainer.innerHTML = '';
-  
-  //   errorContainer.innerHTML = '<div class="cf7-error-messages">' + spamMessage + '</div>';
-  // }, false);
-  
-  // document.addEventListener('wpcf7mailfailed', function(event) {
-  //   var form = event.detail.into;
-  //   var failureMessage = event.detail.apiResponse.message;
-  
-  //   var errorContainer = form.querySelector('.sub-form__error');
-  //   errorContainer.innerHTML = '';
-  
-  //   errorContainer.innerHTML = '<div class="cf7-error-messages">' + failureMessage + '</div>';
-  // }, false);
-  
-
-
 });

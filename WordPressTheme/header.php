@@ -34,7 +34,7 @@
   $price = esc_url(home_url('/price/'));
   $faq = esc_url(home_url('/faq/'));
   $privacy = esc_url(home_url('/privacypolicy/'));
-  $terms = esc_url(home_url('/terms-of-service/'));
+  $terms = esc_url(home_url('/termsofservice/'));
   $contact = esc_url(home_url('/contact/'));
   ?>
 

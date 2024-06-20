@@ -345,12 +345,18 @@ input::placeholder {
 	display: none;
 }
 
+/*wpcf7カスタマイズ　エラー文*/
 .wpcf7 form .wpcf7-response-output {
 	color: #C94800;
 	font-size: rem(14);
 	text-align: center;
 	padding: 0;
-	margin: 0;
+	max-width: rem(224);
+	margin: auto;
+	@include mq(md) {
+		max-width: 100%;
+		margin: 0;
+	}
 }
 
 .wpcf7 form.invalid .wpcf7-response-output {

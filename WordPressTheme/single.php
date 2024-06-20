@@ -56,10 +56,11 @@
               <!-- ページナビ -->
               <?php
               $prev = get_previous_post();
-              $prev_url = get_permalink($prev->ID);
+              $prev_url = $prev ? get_permalink($prev->ID) : ''; // 前の記事がある場合のみリンクを取得する
               $next = get_next_post();
-              $next_url = get_permalink($next->ID);
+              $next_url = $next ? get_permalink($next->ID) : ''; // 次の記事がある場合のみリンクを取得する
               ?>
+
 
               <div class="sub-blog__page-navi sub-blog__page-navi--page page-navi page-navi--page">
 
