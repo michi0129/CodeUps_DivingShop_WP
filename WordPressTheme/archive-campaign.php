@@ -40,9 +40,13 @@
           // クエリパラメータからカテゴリーを取得
           $category = isset($_GET['category']) ? $_GET['category'] : 'all';
 
+          // クエリパラメータからページ番号を取得
+          $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
           $args = array(
             'post_type' => 'campaign', // カスタム投稿タイプを指定
-            'posts_per_page' => -1, // すべての投稿を取得
+            'posts_per_page' => 4, // 1ページあたりの表示件数を4件に設定
+            'paged' => $paged, // 現在のページ番号
           );
 
           // カテゴリーが 'all' でない場合は、特定のカテゴリーに関連する投稿のみを取得
@@ -50,16 +54,16 @@
             $args['tax_query'] = array(
               array(
                 'taxonomy' => 'campaign_category', // カスタムタクソノミーを指定
-                'field'    => 'slug',
-                'terms'    => $category,
+                'field'    => 'slug', // フィールド名、'name' か 'slug'
+                'terms'    => $category, //フィルタリングしたいカテゴリー名またはスラッグ
               ),
             );
           }
 
-          $posts_query = new WP_Query($args);
+          $campaign_query = new WP_Query($args);
 
-          if ($posts_query->have_posts()) :
-            while ($posts_query->have_posts()) : $posts_query->the_post();
+          if ($campaign_query->have_posts()) :
+            while ($campaign_query->have_posts()) : $campaign_query->the_post();
           ?>
               <div class="sub-campaign__card campaign-card">
                 <div class="campaign-card__image">
@@ -91,7 +95,7 @@
                   <p class="campaign-card__contents-description campaign-card__contents-description--campaign">
                     <?php the_content(); ?>
                   </p>
-                  <time class="campaign-card__contents-date" datetime="<?php the_time('c'); ?>"><?php the_time('Y/m/d'); ?></time>
+                  <p class="campaign-card__contents-date">2023/6/1-9/30</p>
                   <p class="campaign-card__caption">ご予約・お問い合わせはコチラ</p>
                   <div class="campaign-card__button">
                     <a href="./contact.html" class="button">
@@ -113,8 +117,9 @@
 
       <!-- ページナビ -->
       <div class="sub-campaign__page-navi page-navi">
-        <?php custom_page_navi(); ?>
+        <?php custom_page_navi($campaign_query); ?>
       </div>
+
 
     </div>
 

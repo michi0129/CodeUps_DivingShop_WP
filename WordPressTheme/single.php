@@ -81,7 +81,7 @@
 
           <!-- 人気記事 -->
           <?php
-          $news_query = new WP_Query(
+          $popular_query = new WP_Query(
             array(
               'post_type'      => 'post',
               'posts_per_page' => 3,
@@ -92,9 +92,9 @@
             <h2 class="sub-blog__popular-title sub-title"><span></span>人気記事</h2>
             <div class="sub-blog__popular-cards popular-cards">
 
-              <?php if ($news_query->have_posts()) : ?>
-                <?php while ($news_query->have_posts()) : ?>
-                  <?php $news_query->the_post(); ?>
+              <?php if ($popular_query->have_posts()) : ?>
+                <?php while ($popular_query->have_posts()) : ?>
+                  <?php $popular_query->the_post(); ?>
 
                   <a href="<?php the_permalink(); ?>" class="popular-cards__card popular-card">
                     <div class="popular-card__img">
@@ -119,10 +119,10 @@
 
           <!-- 口コミ -->
           <?php
-          $news_query = new WP_Query(
+          $voice_query = new WP_Query(
             array(
               'post_type'      => 'voice',
-              'posts_per_page' => 1,
+              'posts_per_page' => 5, // 5つの投稿を取得
             )
           );
           ?>
@@ -131,38 +131,43 @@
             <div class="sub-blog__voice-cards sub-voice-cards">
 
 
-              <?php if ($news_query->have_posts()) : ?>
-                <?php while ($news_query->have_posts()) : ?>
-                  <?php $news_query->the_post(); ?>
+              <?php if ($voice_query->have_posts()) : ?>
+                <?php $count = 0; ?>
+                <?php while ($voice_query->have_posts()) : ?>
+                  <?php $voice_query->the_post(); ?>
+                  <?php $count++; ?>
+                  <?php if ($count == 5) : // 5番目の投稿を表示 
+                  ?>
 
-                  <a href="#" class="sub-voice-cards__card sub-voice-card">
-                    <div class="sub-voice-card__img">
-                      <?php if (get_the_post_thumbnail()) : ?>
-                        <img src="<?php the_post_thumbnail_url('full'); ?>" alt="女性の画像">
+                    <a href="#" class="sub-voice-cards__card sub-voice-card">
+                      <div class="sub-voice-card__img">
+                        <?php if (get_the_post_thumbnail()) : ?>
+                          <img src="<?php the_post_thumbnail_url('full'); ?>" alt="女性の画像">
+                        <?php endif; ?>
+
+                      </div>
+                      <div class="sub-voice-card__text-block">
+                        <p class="sub-voice-card__age"><?php the_field('demographic') ?></p>
+                        <h3 class="sub-voice-card__title"><?php the_title(); ?></h3>
+                      </div>
+                      <div class="sub-blog__voice-button">
+                        <a href="<?php echo get_theme_file_uri(); ?>/voice.html" class="button">
+                          <span>View more</span>
+                        </a>
+
                       <?php endif; ?>
-
-                    </div>
-                    <div class="sub-voice-card__text-block">
-                      <p class="sub-voice-card__age"><?php the_field('demographic') ?></p>
-                      <h3 class="sub-voice-card__title"><?php the_title(); ?></h3>
-                    </div>
-                    <div class="sub-blog__voice-button">
-                      <a href="<?php echo get_theme_file_uri(); ?>/voice.html" class="button">
-                        <span>View more</span>
-                      </a>
-
                     <?php endwhile; ?>
                   <?php endif; ?>
                   <?php wp_reset_postdata(); ?>
 
-                    </div>
-                  </a>
+                      </div>
+                    </a>
             </div>
           </section>
 
           <!-- キャンペーン -->
           <?php
-          $news_query = new WP_Query(
+          $campaign_query = new WP_Query(
             array(
               'post_type'      => 'campaign',
               'posts_per_page' => 2,
@@ -172,10 +177,10 @@
           <section class="sub-blog__campaign">
             <h2 class="sub-blog__campaign-title sub-title"><span></span>キャンペーン</h2>
             <div class="sub-blog__campaign-cards campaign-cards">
-              <?php if ($news_query->have_posts()) : ?>
-                <?php while ($news_query->have_posts()) : ?>
+              <?php if ($campaign_query->have_posts()) : ?>
+                <?php while ($campaign_query->have_posts()) : ?>
 
-                  <?php $news_query->the_post(); ?>
+                  <?php $campaign_query->the_post(); ?>
                   <a href="#" class="sub-blog__campaign-card campaign-card">
                     <div class="campaign-card__image campaign-card__image--sub">
                       <?php if (get_the_post_thumbnail()) : ?>

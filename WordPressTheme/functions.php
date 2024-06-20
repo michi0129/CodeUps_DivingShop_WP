@@ -43,6 +43,7 @@ add_action('after_setup_theme', 'my_setup');
 function custom_page_navi()
 {
     global $wp_query;
+    // var_dump($wp_query); // クエリの内容を確認
     $big = 999999999; // 必要なほど大きな整数
 
     $pages = paginate_links(array(
@@ -201,26 +202,26 @@ function dynamic_field_values($tag, $unused)
 add_filter('wpcf7_form_tag', 'dynamic_field_values', 30, 2);
 
 // ページの表示回数をカウント
-function my_custom_popular_posts($post_id)
-{
-    $count_key = 'cf_popular_posts';
-    $count = get_post_meta($post_id, $count_key, true);
-    if ($count == '') {
-        $count = 0;
-        delete_post_meta($post_id, $count_key);
-        add_post_meta($post_id, $count_key, '0');
-    } else {
-        $count++;
-        update_post_meta($post_id, $count_key, $count);
-    }
-}
-function my_custom_track_posts($post_id)
-{
-    if (!is_single()) return;
-    if (empty($post_id)) {
-        global $post;
-        $post_id = $post->ID;
-    }
-    my_custom_popular_posts($post_id);
-}
-add_action('wp_head', 'my_custom_track_posts');
+// function my_custom_popular_posts($post_id)
+// {
+//     $count_key = 'cf_popular_posts';
+//     $count = get_post_meta($post_id, $count_key, true);
+//     if ($count == '') {
+//         $count = 0;
+//         delete_post_meta($post_id, $count_key);
+//         add_post_meta($post_id, $count_key, '0');
+//     } else {
+//         $count++;
+//         update_post_meta($post_id, $count_key, $count);
+//     }
+// }
+// function my_custom_track_posts($post_id)
+// {
+//     if (!is_single()) return;
+//     if (empty($post_id)) {
+//         global $post;
+//         $post_id = $post->ID;
+//     }
+//     my_custom_popular_posts($post_id);
+// }
+// add_action('wp_head', 'my_custom_track_posts');

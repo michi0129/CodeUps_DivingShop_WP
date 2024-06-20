@@ -212,7 +212,7 @@ $contact = esc_url(home_url('/contact/'));
 
   <!-- Blog -->
   <?php
-  $news_query = new WP_Query(
+  $posts_query = new WP_Query(
     array(
       'post_type'      => 'post',
       'posts_per_page' => 3,
@@ -230,14 +230,19 @@ $contact = esc_url(home_url('/contact/'));
       <!-- グリッドレイアウト -->
       <div class="blog__cards blog-cards">
         <!-- カード1個目 -->
-        <?php if ($news_query->have_posts()) : ?>
-          <?php while ($news_query->have_posts()) : ?>
-            <?php $news_query->the_post(); ?>
+        <?php if ($posts_query->have_posts()) : ?>
+          <?php while ($posts_query->have_posts()) : ?>
+            <?php $posts_query->the_post(); ?>
 
             <a href="<?php the_permalink(); ?>" class="blog-cards__card blog-card blog-card--sub">
               <div class="blog-card__inner">
                 <div class="blog-card__image blog-card__image-sub">
-                  <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/blog1.jpg" alt="珊瑚の画像">
+                  <!-- <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/blog1.jpg" alt="珊瑚の画像"> -->
+                  <?php if (get_the_post_thumbnail()) : ?>
+                    <img src="<?php the_post_thumbnail_url('full'); ?>" alt="">
+                  <?php else : ?>
+                    <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/noimage.jpg" alt="画像がありません">
+                  <?php endif; ?>
                 </div>
                 <div class="blog-card__text-block">
                   <time datetime="<?php the_time('c'); ?>" class="blog-card__date"><?php the_time('Y/m/d'); ?></time>
@@ -268,7 +273,7 @@ $contact = esc_url(home_url('/contact/'));
 
   <!-- Voice -->
   <?php
-  $news_query = new WP_Query(
+  $voice_query = new WP_Query(
     array(
       'post_type'      => 'voice',
       'posts_per_page' => 2,
@@ -284,9 +289,9 @@ $contact = esc_url(home_url('/contact/'));
       </div>
       <div class="voice__cards voice-cards">
         <!-- カード1個目 -->
-        <?php if ($news_query->have_posts()) : ?>
-          <?php while ($news_query->have_posts()) : ?>
-            <?php $news_query->the_post(); ?>
+        <?php if ($voice_query->have_posts()) : ?>
+          <?php while ($voice_query->have_posts()) : ?>
+            <?php $voice_query->the_post(); ?>
             <div class="voice-cards__card voice-card">
               <div class="voice-card__inner">
                 <div class="voice-card__flex">

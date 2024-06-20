@@ -41,9 +41,13 @@
         // クエリパラメータからカテゴリーを取得
         $category = isset($_GET['category']) ? $_GET['category'] : 'all';
 
+        // クエリパラメータからページ番号を取得
+        $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
         $args = array(
           'post_type' => 'voice', // カスタム投稿タイプを指定
-          'posts_per_page' => -1, // すべての投稿を取得
+          'posts_per_page' => 6, // すべての投稿を取得
+          'paged' => $paged, // 現在のページ番号
         );
 
         // カテゴリーが 'all' でない場合は、特定のカテゴリーに関連する投稿のみを取得
@@ -57,10 +61,10 @@
           );
         }
 
-        $posts_query = new WP_Query($args);
+        $voice_query = new WP_Query($args);
 
-        if ($posts_query->have_posts()) :
-          while ($posts_query->have_posts()) : $posts_query->the_post();
+        if ($voice_query->have_posts()) :
+          while ($voice_query->have_posts()) : $voice_query->the_post();
         ?>
 
             <div class="sub-voice__content voice-card">
@@ -101,167 +105,9 @@
 
       </div>
 
-
-      <!-- タブ　ライセンス講習 -->
-      <!-- グリッドレイアウト -->
-      <div class="sub-voice__contents js-tab-content">
-        <!-- カード -->
-        <div class="sub-voice__content voice-card">
-          <div class="voice-card__inner">
-            <div class="voice-card__flex">
-              <div class="voice-card__title-block">
-                <div class="voice-card__subtitle">
-                  <p>20代(女性)</p>
-                  <span>ライセンス講習</span>
-                </div>
-                <h2 class="voice-card__title">ここにタイトルが入ります。ここにタイトル</h2>
-              </div>
-              <div class="voice-card__image">
-                <img src="./assets/images/common/voice1.jpg" alt="女性の画像">
-              </div>
-            </div>
-            <div class="voice-card__text-block">
-              <p class="voice-card__text">ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>
-                ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>
-                ここにテキストが入ります。ここにテキストが入ります。</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- カード -->
-        <div class="sub-voice__content voice-card">
-          <div class="voice-card__inner">
-            <div class="voice-card__flex">
-              <div class="voice-card__title-block">
-                <div class="voice-card__subtitle">
-                  <p>20代(女性)</p>
-                  <span>ライセンス講習</span>
-                </div>
-                <h2 class="voice-card__title">ここにタイトルが入ります。ここにタイトル</h2>
-              </div>
-              <div class="voice-card__image">
-                <img src="./assets/images/common/voice6.jpg" alt="微笑む女性の画像">
-              </div>
-            </div>
-            <div class="voice-card__text-block">
-              <p class="voice-card__text">ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>
-                ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>
-                ここにテキストが入ります。ここにテキストが入ります。</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- タブ　ファンダイビング -->
-      <!-- グリッドレイアウト -->
-      <div class="sub-voice__contents js-tab-content">
-
-        <!-- カード -->
-        <div class="sub-voice__content voice-card">
-          <div class="voice-card__inner">
-            <div class="voice-card__flex">
-              <div class="voice-card__title-block">
-                <div class="voice-card__subtitle">
-                  <p>20代(男性)</p>
-                  <span>ファンダイビング</span>
-                </div>
-                <h2 class="voice-card__title">ここにタイトルが入ります。ここにタイトル</h2>
-              </div>
-              <div class="voice-card__image">
-                <img src="./assets/images/common/voice2.jpg" alt="男性の画像">
-              </div>
-            </div>
-            <div class="voice-card__text-block">
-              <p class="voice-card__text">ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>
-                ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>
-                ここにテキストが入ります。ここにテキストが入ります。</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- カード -->
-        <div class="sub-voice__content voice-card">
-          <div class="voice-card__inner">
-            <div class="voice-card__flex">
-              <div class="voice-card__title-block">
-                <div class="voice-card__subtitle">
-                  <p>30代(カップル)</p>
-                  <span>ファンダイビング</span>
-                </div>
-                <h2 class="voice-card__title">ここにタイトルが入ります。ここにタイトル</h2>
-              </div>
-              <div class="voice-card__image">
-                <img src="./assets/images/common/voice-couple.jpg" alt="カップルの画像">
-              </div>
-            </div>
-            <div class="voice-card__text-block">
-              <p class="voice-card__text">ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>
-                ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>
-                ここにテキストが入ります。ここにテキストが入ります。</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- タブ　体験ダイビング -->
-      <!-- グリッドレイアウト -->
-      <div class="sub-voice__contents js-tab-content">
-
-        <!-- カード -->
-        <div class="sub-voice__content voice-card">
-          <div class="voice-card__inner">
-            <div class="voice-card__flex">
-              <div class="voice-card__title-block">
-                <div class="voice-card__subtitle">
-                  <p>30代(女性)</p>
-                  <span>体験ダイビング</span>
-                </div>
-                <h2 class="voice-card__title">ここにタイトルが入ります。ここにタイトル</h2>
-              </div>
-              <div class="voice-card__image">
-                <img src="./assets/images/common/voice3.jpg" alt="女性2人の画像">
-              </div>
-            </div>
-            <div class="voice-card__text-block">
-              <p class="voice-card__text">ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>
-                ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>
-                ここにテキストが入ります。ここにテキストが入ります。</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- カード -->
-        <div class="sub-voice__content voice-card">
-          <div class="voice-card__inner">
-            <div class="voice-card__flex">
-              <div class="voice-card__title-block">
-                <div class="voice-card__subtitle">
-                  <p>20代(女性)</p>
-                  <span>体験ダイビング</span>
-                </div>
-                <h2 class="voice-card__title">ここにタイトルが入ります。ここにタイトル</h2>
-              </div>
-              <div class="voice-card__image">
-                <img src="./assets/images/common/voice4.jpg" alt="髪を押さえる女性の画像">
-              </div>
-            </div>
-            <div class="voice-card__text-block">
-              <p class="voice-card__text">ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>
-                ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>
-                ここにテキストが入ります。ここにテキストが入ります。</p>
-            </div>
-          </div>
-        </div>
-
-
-      </div>
-
-
       <!-- ページナビ -->
       <div class="sub-voice__page-navi page-navi">
-        <?php custom_page_navi(); ?>
+        <?php custom_page_navi($voice_query); ?>
       </div>
     </div>
 

@@ -119,7 +119,7 @@
                   <li class="footer-navi__items">
                     <a href="<?php echo $price; ?>" class="footer-navi__title"><img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/starfish.png" alt="ヒトデ">料金一覧</a>
                     <ul class="footer-navi__item">
-                      <li><a href="<?php echo $price; ?>#lisence">ライセンス講習</a></li>
+                      <li><a href="<?php echo $price; ?>#license">ライセンス講習</a></li>
                       <li><a href="<?php echo $price; ?>#trial">体験ダイビング</a></li>
                       <li><a href="<?php echo $price; ?>#fun">ファンダイビング</a></li>
                     </ul>
