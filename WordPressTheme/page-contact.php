@@ -24,19 +24,7 @@
   <div class="sub-form form lower-form">
     <div class="sub-form__inner inner">
 
-      <!-- フォーム -->
-      <!-- <p class="sub-form__error">※必須項目が入力されていません。<br class="u-mobile">入力してください。</p> -->
-      <!-- <form action="" method="post" id="" class="js-form"> -->
-      <!-- <dl class="sub-form__item">
-            <dt>
-              お名前<span>必須</span>
-            </dt>
-            <dd>
-              <input type="text" name="name" value="" class="js-name" placeholder="沖縄　太郎" required />
-            </dd>
-          </dl> -->
       <?php echo do_shortcode('[contact-form-7 id="7c46d58" title="お問い合わせ"]'); ?>
-      <!-- </form> -->
 
     </div>
   </div>

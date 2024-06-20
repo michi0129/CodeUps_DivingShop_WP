@@ -237,7 +237,6 @@ $contact = esc_url(home_url('/contact/'));
             <a href="<?php the_permalink(); ?>" class="blog-cards__card blog-card blog-card--sub">
               <div class="blog-card__inner">
                 <div class="blog-card__image blog-card__image-sub">
-                  <!-- <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/blog1.jpg" alt="珊瑚の画像"> -->
                   <?php if (get_the_post_thumbnail()) : ?>
                     <img src="<?php the_post_thumbnail_url('full'); ?>" alt="">
                   <?php else : ?>
