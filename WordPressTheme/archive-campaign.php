@@ -26,10 +26,11 @@
     <div class="sub-campaign__inner inner">
       <!-- タブ -->
       <ul class="sub-campaign__tabs tabs">
-        <li class="tabs__tab"><a href="?category=all">ALL</a></li>
-        <li class="tabs__tab"><a href="?category=license">ライセンス講習</a></li>
-        <li class="tabs__tab"><a href="?category=fun">ファンダイビング</a></li>
-        <li class="tabs__tab"><a href="?category=trial">体験ダイビング</a></li>
+        <li class="tabs__tab active"><a href="<?php echo (esc_url(home_url('/campaign/'))) ?>">ALL</a></li>
+        <li class="tabs__tab"><a href="<?php echo get_term_link('license', 'campaign_category'); ?>">ライセンス講習</a></li>
+        <li class="tabs__tab"><a href="<?php echo get_term_link('fun', 'campaign_category'); ?>">ファンダイビング</a></li>
+        <li class="tabs__tab"><a href="<?php echo get_term_link('trial', 'campaign_category'); ?>">体験ダイビング</a></li>
+
       </ul>
 
       <!-- コンテンツ -->
@@ -98,7 +99,7 @@
                   <p class="campaign-card__contents-date">2023/6/1-9/30</p>
                   <p class="campaign-card__caption">ご予約・お問い合わせはコチラ</p>
                   <div class="campaign-card__button">
-                    <a href="./contact.html" class="button">
+                    <a href="<?php echo (esc_url(home_url('/contact/'))); ?>" class="button">
                       <span>contact us</span>
                     </a>
                   </div>

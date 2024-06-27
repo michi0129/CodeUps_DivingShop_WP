@@ -89,7 +89,7 @@ $contact = esc_url(home_url('/contact/'));
         <!-- Swiper -->
         <div class="swiper js-campaign-swiper">
           <div class="swiper-wrapper">
-            <!-- カード1個目 -->
+            <!-- ループ開始 -->
             <?php if ($news_query->have_posts()) : ?>
               <?php while ($news_query->have_posts()) : ?>
                 <?php $news_query->the_post(); ?>
@@ -123,6 +123,8 @@ $contact = esc_url(home_url('/contact/'));
               <?php endwhile; ?>
             <?php endif; ?>
             <?php wp_reset_postdata(); ?>
+            <!-- ループ終了 -->
+
 
 
           </div>
@@ -229,7 +231,7 @@ $contact = esc_url(home_url('/contact/'));
       </div>
       <!-- グリッドレイアウト -->
       <div class="blog__cards blog-cards">
-        <!-- カード1個目 -->
+        <!-- ループ開始 -->
         <?php if ($posts_query->have_posts()) : ?>
           <?php while ($posts_query->have_posts()) : ?>
             <?php $posts_query->the_post(); ?>
@@ -256,6 +258,7 @@ $contact = esc_url(home_url('/contact/'));
           <?php endwhile; ?>
         <?php endif; ?>
         <?php wp_reset_postdata(); ?>
+        <!-- ループ終了 -->
 
       </div>
 
@@ -287,7 +290,7 @@ $contact = esc_url(home_url('/contact/'));
         <div class="section-title__japanese">お客様の声</div>
       </div>
       <div class="voice__cards voice-cards">
-        <!-- カード1個目 -->
+        <!-- ループ開始 -->
         <?php if ($voice_query->have_posts()) : ?>
           <?php while ($voice_query->have_posts()) : ?>
             <?php $voice_query->the_post(); ?>
@@ -314,13 +317,15 @@ $contact = esc_url(home_url('/contact/'));
                   </div>
                 </div>
                 <div class="voice-card__text-block">
-                  <p class="voice-card__text"><?php the_content(); ?></p>
+                  <p class="voice-card__text"><?php the_excerpt(); ?></p>
                 </div>
               </div>
             </div>
           <?php endwhile; ?>
         <?php endif; ?>
         <?php wp_reset_postdata(); ?>
+        <!-- ループ終了 -->
+
       </div>
       <!-- ボタン -->
       <div class="voice__button">

@@ -26,11 +26,13 @@
   <section class="terms lower-terms">
     <div class="terms__inner inner">
       <h2 class="terms__title">利用規約</h2>
-      <?php if (have_posts()) :
-        while (have_posts()) : the_post(); ?>
-          <?php the_content(); ?>
-      <?php endwhile;
-      endif; ?>
+      <div class="terms__contents">
+        <?php if (have_posts()) :
+          while (have_posts()) : the_post(); ?>
+            <?php the_content(); ?>
+        <?php endwhile;
+        endif; ?>
+      </div>
     </div>
   </section>
 

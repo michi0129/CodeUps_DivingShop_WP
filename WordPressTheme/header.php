@@ -8,15 +8,16 @@
   <meta name="format-detection" content="telephone=no" />
 
   <!-- ogp -->
-  <meta property="og:title" content="" />
+  <!-- <meta property="og:title" content="" />
   <meta property="og:type" content="" />
   <meta property="og:
   " content="" />
   <meta property="og:image" content="" />
   <meta property="og:site_name" content="" />
-  <meta property="og:description" content="" />
+  <meta property="og:description" content="" /> -->
+
   <!-- ファビコン -->
-  <link rel="icon" href="#" />
+  <link rel="icon" href="<?php echo get_theme_file_uri(); ?>/assets/images/common/favicon.ico" />
 
   <?php wp_head(); ?>
 

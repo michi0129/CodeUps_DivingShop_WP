@@ -26,6 +26,7 @@
     <div class="sub-price__inner inner">
 
       <div id="license" class="sub-price__contents">
+        <!-- <h2 class="sub-price__title"><span>ライセンス講習</span></h2> -->
         <h2 class="sub-price__title"><span>ライセンス講習</span></h2>
 
         <table class="sub-price__table">

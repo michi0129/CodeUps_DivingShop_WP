@@ -11,6 +11,7 @@
     $privacy = esc_url(home_url('/privacypolicy/'));
     $terms = esc_url(home_url('/termsofservice/'));
     $contact = esc_url(home_url('/contact/'));
+    $sitemap = esc_url(home_url('/sitemap/'));
     ?>
 
     <?php if (!is_404()) : ?>
@@ -76,8 +77,8 @@
             <div class="footer__top">
               <a href="<?php echo $home; ?>" class="footer__logo"><img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/logo-white.svg" alt="CodeUpsのロゴ"></a>
               <div class="footer__sns">
-                <a href="#"><img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/FacebookLogo.png" alt="Facebookのロゴ"></a>
-                <a href="#"><img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/InstagramLogo.png" alt="instagramのロゴ"></a>
+                <a href="https://www.facebook.com/?locale=ja_JP" target="_blank"><img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/FacebookLogo.png" alt="Facebookのロゴ"></a>
+                <a href="https://www.instagram.com/" target="_blank"><img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/InstagramLogo.png" alt="instagramのロゴ"></a>
               </div>
             </div>
             <!-- フッターナビゲーション -->
@@ -140,6 +141,10 @@
                   <li class="footer-navi__items">
                     <a href="<?php echo $contact; ?>" class="footer-navi__title"><img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/starfish.png" alt="ヒトデ">お問い合わせ</a>
                   </li>
+                  <li class="footer-navi__items">
+                    <a href="<?php echo $sitemap; ?>" class="footer-navi__title"><img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/starfish.png" alt="ヒトデ">サイトマップ</a>
+                  </li>
+
                 </ul>
 
               </nav>

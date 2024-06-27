@@ -63,21 +63,27 @@
 
     @include mq(md) {
         width: 28.57%;
-        padding-top: rem(45);
-        padding-bottom: rem(45);
+        // padding-top: rem(45);
+        // padding-bottom: rem(45);
         padding-left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 }
 
 .sub-price__title--trial,
 .sub-price__title--fun {
     @include mq(md) {
-        padding-top: rem(75);
+        // padding-top: rem(75);
     }
 }
 
 .sub-price__title span {
     position: relative;
+    @include mq(md) {
+        height: rem(96);
+    }
     ;
 }
 

@@ -26,10 +26,10 @@
   <section class="sub-voice lower-voice">
     <div class="sub-voice__inner inner">
       <ul class="sub-voice__tabs tabs">
-        <li class="tabs__tab"><a href="?category=all">ALL</a></li>
-        <li class="tabs__tab"><a href="?category=license">ライセンス講習</a></li>
-        <li class="tabs__tab"><a href="?category=fun">ファンダイビング</a></li>
-        <li class="tabs__tab"><a href="?category=trial">体験ダイビング</a></li>
+        <li class="tabs__tab active"><a href="<?php echo (esc_url(home_url('/campaign/'))) ?>">ALL</a></li>
+        <li class="tabs__tab"><a href="<?php echo get_term_link('license', 'voice_category'); ?>">ライセンス講習</a></li>
+        <li class="tabs__tab"><a href="<?php echo get_term_link('fun', 'voice_category'); ?>">ファンダイビング</a></li>
+        <li class="tabs__tab"><a href="<?php echo get_term_link('trial', 'voice_category'); ?>">体験ダイビング</a></li>
       </ul>
 
 

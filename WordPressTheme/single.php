@@ -84,8 +84,12 @@
           <?php
           $popular_query = new WP_Query(
             array(
-              'post_type'      => 'post',
-              'posts_per_page' => 3,
+              // 'post_type'      => 'post',
+              // 'posts_per_page' => 3,
+              'meta_key' => 'cf_popular_posts',
+              'orderby' => 'meta_value_num',
+              'order' => 'DESC',
+              'showposts' => 3,
             )
           );
           ?>
@@ -123,7 +127,7 @@
           $voice_query = new WP_Query(
             array(
               'post_type'      => 'voice',
-              'posts_per_page' => 5, // 5つの投稿を取得
+              'posts_per_page' => 1, // 5つの投稿を取得
             )
           );
           ?>
@@ -137,10 +141,10 @@
                 <?php while ($voice_query->have_posts()) : ?>
                   <?php $voice_query->the_post(); ?>
                   <?php $count++; ?>
-                  <?php if ($count == 5) : // 5番目の投稿を表示 
+                  <?php if ($count == 1) : // 1番目の投稿を表示 
                   ?>
 
-                    <a href="#" class="sub-voice-cards__card sub-voice-card">
+                    <a href="<?php the_permalink(); ?>" class="sub-voice-cards__card sub-voice-card">
                       <div class="sub-voice-card__img">
                         <?php if (get_the_post_thumbnail()) : ?>
                           <img src="<?php the_post_thumbnail_url('full'); ?>" alt="女性の画像">
@@ -179,32 +183,35 @@
             <h2 class="sub-blog__campaign-title sub-title"><span></span>キャンペーン</h2>
             <div class="sub-blog__campaign-cards campaign-cards">
               <?php if ($campaign_query->have_posts()) : ?>
+                <?php $count = 0; ?>
                 <?php while ($campaign_query->have_posts()) : ?>
-
                   <?php $campaign_query->the_post(); ?>
-                  <a href="#" class="sub-blog__campaign-card campaign-card">
-                    <div class="campaign-card__image campaign-card__image--sub">
-                      <?php if (get_the_post_thumbnail()) : ?>
-                        <img src="<?php the_post_thumbnail_url('full'); ?>" alt="">
-                      <?php endif; ?>
-                    </div>
-                    <div class="campaign-card__body campaign-card__body--sub">
-                      <h2 class="campaign-card__title campaign-card__title--sub"><?php the_title(); ?></h2>
-                      <span class="campaign-card__bar"></span>
-                      <div class="campaign-card__contents campaign-card__contents--sub">
-                        <p class="campaign-card__contents-title campaign-card__contents-title--sub">全部コミコミ(お一人様)</p>
-                        <div class="campaign-card__contents-content campaign-card__contents-content--sub">
-                          <?php if (get_field('normal-price')) : ?>
-                            <p>¥<?php the_field('normal-price'); ?><span></span></p>
-                          <?php endif; ?>
-                          <?php if (get_field('campaign-price')) : ?>
-                            <p>¥<?php the_field('campaign-price'); ?></p>
-                          <?php endif; ?>
+                  <?php $count++; ?>
+                  <?php if ($count == 1 || $count == 2) : // 1番目と2番目の投稿を表示 
+                  ?>
+                    <a href="<?php the_permalink(); ?>" class="sub-blog__campaign-card campaign-card">
+                      <div class="campaign-card__image campaign-card__image--sub">
+                        <?php if (get_the_post_thumbnail()) : ?>
+                          <img src="<?php the_post_thumbnail_url('full'); ?>" alt="">
+                        <?php endif; ?>
+                      </div>
+                      <div class="campaign-card__body campaign-card__body--sub">
+                        <h2 class="campaign-card__title campaign-card__title--sub"><?php the_title(); ?></h2>
+                        <span class="campaign-card__bar"></span>
+                        <div class="campaign-card__contents campaign-card__contents--sub">
+                          <p class="campaign-card__contents-title campaign-card__contents-title--sub">全部コミコミ(お一人様)</p>
+                          <div class="campaign-card__contents-content campaign-card__contents-content--sub">
+                            <?php if (get_field('normal-price')) : ?>
+                              <p>¥<?php the_field('normal-price'); ?><span></span></p>
+                            <?php endif; ?>
+                            <?php if (get_field('campaign-price')) : ?>
+                              <p>¥<?php the_field('campaign-price'); ?></p>
+                            <?php endif; ?>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </a>
-
+                    </a>
+                  <?php endif; ?>
                 <?php endwhile; ?>
               <?php endif; ?>
               <?php wp_reset_postdata(); ?>
@@ -222,19 +229,40 @@
           <section class="sub-blog__archive">
             <h2 class="sub-blog__archive-title sub-title"><span></span>アーカイブ</h2>
             <ul class="sub-blog__archive-lists">
-              <li class="sub-blog__archive-list js-archive-accordion"><span></span>2023</li>
-              <ul class="sub-blog__archive-months">
-                <li class="sub-blog__archive-month"><a href="#"><span></span>3月</a></li>
-                <li class="sub-blog__archive-month"><a href="#"><span></span>2月</a></li>
-                <li class="sub-blog__archive-month"><a href="#"><span></span>1月</a></li>
-              </ul>
+              <?php
+              // Get years with posts
+              $years = get_years_with_posts();
 
-              <li class="sub-blog__archive-list js-archive-accordion"><span></span>2022</li>
-              <ul class="sub-blog__archive-months">
-                <li class="sub-blog__archive-month"><a href="#"><span></span>3月</a></li>
-                <li class="sub-blog__archive-month"><a href="#"><span></span>2月</a></li>
-                <li class="sub-blog__archive-month"><a href="#"><span></span>1月</a></li>
-              </ul>
+              // Loop through each year
+              foreach ($years as $year) {
+              ?>
+                <li class="sub-blog__archive-list js-archive-accordion"><span></span><?php echo $year; ?></li>
+                <ul class="sub-blog__archive-months">
+                  <?php
+                  // Loop through months for the current year
+                  for ($month = 12; $month >= 1; $month--) {
+                    // Check if posts exist for this month
+                    $args = array(
+                      'year' => $year,
+                      'monthnum' => $month,
+                      'post_type' => 'post',
+                      'post_status' => 'publish',
+                    );
+                    $query = new WP_Query($args);
+                    if ($query->have_posts()) {
+                      $month_link = get_month_link($year, $month);
+                  ?>
+                      <li class="sub-blog__archive-month">
+                        <a href="<?php echo esc_url($month_link); ?>"><?php echo date_i18n('n月', mktime(0, 0, 0, $month, 1, $year)); ?><span></span></a>
+                      </li>
+                  <?php
+                    }
+                    // Reset the query
+                    wp_reset_postdata();
+                  }
+                  ?>
+                </ul>
+              <?php } ?>
             </ul>
           </section>
         </aside>

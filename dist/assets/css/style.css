@@ -997,10 +997,6 @@ body.is-active {
 	margin-top: 2.25rem;
 }
 
-.footer-navi__items:nth-child(5) {
-	margin-top: 0;
-}
-
 .footer-navi__title {
 	font-weight: 700;
 	position: relative;
@@ -1943,15 +1939,15 @@ input::placeholder {
 .privacy__contents ol {
 	list-style-position: outside;
 	list-style-type: decimal;
+	margin-top: 2rem;
 	padding-left: 1.4375rem;
 }
 
-.privacy__contents ul {
-	list-style: "・";
-	list-style-position: inside;
+.privacy__contents ol:not(:first-of-type) {
+	margin-top: 0;
 }
 
-.privacy__text-box:not(:first-child) {
+.privacy__contents p:not(:first-child) {
 	margin-top: 2rem;
 }
 
@@ -3036,7 +3032,7 @@ input::placeholder {
 	line-height: 1;
 }
 
-.tabs__tab.is-active {
+.tabs__tab.active {
 	align-items: center;
 	background-color: #408F95;
 	color: #fff;
@@ -3086,6 +3082,7 @@ input::placeholder {
 }
 
 .terms__contents {
+	font-size: 1rem;
 	line-height: 2;
 	margin-top: 2.8125rem;
 }
@@ -3093,6 +3090,7 @@ input::placeholder {
 .terms__contents ol {
 	list-style-position: outside;
 	list-style-type: decimal;
+	margin-top: 2rem;
 	padding-left: 1.4375rem;
 }
 
@@ -3101,7 +3099,7 @@ input::placeholder {
 	list-style-position: inside;
 }
 
-.terms__text-box:not(:first-child) {
+.terms__contents p:nth-of-type(3) {
 	margin-top: 2rem;
 }
 
@@ -4298,17 +4296,13 @@ select {
 	font-size: 2rem;
 }
 
-.privacy__contents {
-	letter-spacing: -0.06em;
-}
-
 .privacy__contents ol {
 	letter-spacing: normal;
 	padding-left: 1.25rem;
 }
 
-.privacy__text-box {
-	letter-spacing: normal;
+.privacy__contents p {
+	letter-spacing: -0.01em;
 }
 
 .section-title--white {
@@ -4747,15 +4741,15 @@ select {
 }
 
 .sub-price__title {
-	padding-bottom: 2.8125rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	padding-left: 0;
-	padding-top: 2.8125rem;
 	width: 28.57%;
 }
 
-.sub-price__title--trial,
-.sub-price__title--fun {
-	padding-top: 4.6875rem;
+.sub-price__title span {
+	height: 6rem;
 }
 
 .sub-price__title span::before {
@@ -4873,8 +4867,15 @@ select {
 }
 
 .terms__contents {
-	letter-spacing: normal;
 	margin-top: 3rem;
+}
+
+.terms__contents ol {
+	letter-spacing: normal;
+}
+
+.terms__contents p {
+	letter-spacing: -0.01em;
 }
 
 .to-top {

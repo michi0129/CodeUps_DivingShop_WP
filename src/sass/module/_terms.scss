@@ -49,17 +49,21 @@
 .terms__contents {
     margin-top: rem(45);
     line-height: 2;
+    font-size: rem(16);
 
     @include mq(md) {
-        letter-spacing: normal;
         margin-top: rem(48);
     }
 }
 
 .terms__contents ol {
+    margin-top: rem(32);
     list-style-type: decimal;
     list-style-position: outside;
     padding-left: rem(23);
+    @include mq(md) {
+        letter-spacing: normal;
+    }
 }
 
 .terms__contents ul {
@@ -67,6 +71,15 @@
     list-style-position: inside;
 }
 
-.terms__text-box:not(:first-child) {
+.terms__contents p {
+    @include mq(md) {
+    letter-spacing: -0.01em;
+    }
+}
+
+.terms__contents p:nth-of-type(3) {
     margin-top: rem(32);
 }
+
+
+

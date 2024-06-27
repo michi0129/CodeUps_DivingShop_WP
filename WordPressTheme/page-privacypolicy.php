@@ -26,11 +26,13 @@
   <section class="privacy lower-privacy">
     <div class="privacy__inner inner">
       <h2 class="privacy__title">プライバシーポリシー</h2>
-      <?php if (have_posts()) :
-        while (have_posts()) : the_post(); ?>
-          <?php the_content(); ?>
-      <?php endwhile;
-      endif; ?>
+      <div class="privacy__contents">
+        <?php if (have_posts()) :
+          while (have_posts()) : the_post(); ?>
+            <?php the_content(); ?>
+        <?php endwhile;
+        endif; ?>
+      </div>
     </div>
   </section>
 

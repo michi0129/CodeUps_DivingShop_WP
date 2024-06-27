@@ -51,11 +51,12 @@
     line-height: 2;
 
     @include mq(md) {
-        letter-spacing: -0.06em;
+        // letter-spacing: -0.02em;
     }
 }
 
 .privacy__contents ol {
+    margin-top: rem(32);
     list-style-type: decimal;
     list-style-position: outside;
     padding-left: rem(23);
@@ -65,17 +66,19 @@
     }
 }
 
-.privacy__contents ul {
-    list-style: '・';
-    list-style-position: inside;
+.privacy__contents ol:not(:first-of-type) {
+    margin-top: 0;
 }
 
-.privacy__text-box {
+.privacy__contents p {
     @include mq(md) {
-        letter-spacing: normal;
+    letter-spacing: -0.01em;
     }
 }
 
-.privacy__text-box:not(:first-child) {
+.privacy__contents p:not(:first-child) {
     margin-top: rem(32);
 }
+
+
+

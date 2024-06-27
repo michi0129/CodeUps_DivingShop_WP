@@ -79,6 +79,7 @@ function custom_page_navi()
     }
 }
 
+
 //アーカイブの表示件数変更
 function change_posts_per_page($query)
 {
@@ -107,13 +108,6 @@ function wpcf7_autop_return_false()
 {
     return false;
 }
-
-// function remove_wysiwyg()
-// {
-//     remove_post_type_support('page', 'editor'); //固定ページ全ての場合
-//     // 複数ある場合は追記する
-// }
-// add_action('init', 'remove_wysiwyg');
 
 function remove_wysiwyg_for_specific_pages()
 {
@@ -202,26 +196,66 @@ function dynamic_field_values($tag, $unused)
 add_filter('wpcf7_form_tag', 'dynamic_field_values', 30, 2);
 
 // ページの表示回数をカウント
-// function my_custom_popular_posts($post_id)
-// {
-//     $count_key = 'cf_popular_posts';
-//     $count = get_post_meta($post_id, $count_key, true);
-//     if ($count == '') {
-//         $count = 0;
-//         delete_post_meta($post_id, $count_key);
-//         add_post_meta($post_id, $count_key, '0');
-//     } else {
-//         $count++;
-//         update_post_meta($post_id, $count_key, $count);
-//     }
-// }
-// function my_custom_track_posts($post_id)
-// {
-//     if (!is_single()) return;
-//     if (empty($post_id)) {
-//         global $post;
-//         $post_id = $post->ID;
-//     }
-//     my_custom_popular_posts($post_id);
-// }
-// add_action('wp_head', 'my_custom_track_posts');
+function my_custom_popular_posts($post_id)
+{
+    $count_key = 'cf_popular_posts';
+    $count = get_post_meta($post_id, $count_key, true);
+    if ($count == '') {
+        $count = 0;
+        delete_post_meta($post_id, $count_key);
+        add_post_meta($post_id, $count_key, '0');
+    } else {
+        $count++;
+        update_post_meta($post_id, $count_key, $count);
+    }
+}
+function my_custom_track_posts($post_id)
+{
+    if (!is_single()) return;
+    if (empty($post_id)) {
+        global $post;
+        $post_id = $post->ID;
+    }
+    my_custom_popular_posts($post_id);
+}
+add_action('wp_head', 'my_custom_track_posts');
+
+// カスタムタクソノミーアーカイブページの表示件数を設定
+function custom_posts_per_page($query)
+{
+    if (!is_admin() && $query->is_main_query()) {
+        if (is_tax('campaign_category')) {
+            $query->set('posts_per_page', 4); // campaign_category の表示件数を4件に設定
+        } elseif (is_tax('voice_category')) {
+            $query->set('posts_per_page', 6); // voice_category の表示件数を6件に設定
+        }
+    }
+}
+add_action('pre_get_posts', 'custom_posts_per_page');
+
+// 年ごとの投稿数を取得
+function get_years_with_posts()
+{
+    global $wpdb;
+
+    // SQLクエリを作成して実行する
+    $query = "
+        SELECT DISTINCT YEAR(post_date) AS year
+        FROM $wpdb->posts
+        WHERE post_type = 'post' AND post_status = 'publish'
+        ORDER BY year DESC
+    ";
+
+    $results = $wpdb->get_results($query);
+
+    // 結果があれば年の配列を返す
+    if ($results) {
+        $years = array();
+        foreach ($results as $result) {
+            $years[] = $result->year;
+        }
+        return $years;
+    } else {
+        return array();
+    }
+}

@@ -67,9 +67,9 @@
                   <a href="<?php echo $info; ?>" class="footer-navi__title"><img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/starfish-darkgreen.png" alt="ヒトデ">ダイビング情報</a>
                 </h2>
                 <ul class="footer-navi__item">
-                  <li><a href="<?php echo get_theme_file_uri(); ?>/info.html">ライセンス講習</a></li>
-                  <li><a href="<?php echo get_theme_file_uri(); ?>/info-trial.html">体験ダイビング</a></li>
-                  <li><a href="<?php echo get_theme_file_uri(); ?>/info-fun.html">ファンダイビング</a></li>
+                  <li><a href="<?php echo $info; ?>#tab01">ライセンス講習</a></li>
+                  <li><a href="<?php echo $info; ?>#tab03">体験ダイビング</a></li>
+                  <li><a href="<?php echo $info; ?>#tab02">ファンダイビング</a></li>
                 </ul>
               </li>
               <li class="footer-navi__items">
