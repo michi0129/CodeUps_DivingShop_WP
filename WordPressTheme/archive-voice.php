@@ -25,11 +25,56 @@
   <!-- Voice -->
   <section class="sub-voice lower-voice">
     <div class="sub-voice__inner inner">
+
+      <?php
+      // 現在のクエリオブジェクトを取得
+      $term = get_queried_object();
+      $taxonomy = 'voice_category';
+
+      // オブジェクトの詳細を確認
+      if ($term && isset($term->taxonomy) && $term->taxonomy === $taxonomy) {
+        $current_term_slug = $term->slug;
+      } else {
+        // デフォルトのスラッグを設定（例：すべての投稿を表示するためのデフォルトスラッグ）
+        $current_term_slug = '';
+      }
+
+      // 全てのタームを取得
+      $terms = get_terms(array(
+        'taxonomy' => $taxonomy,
+        'hide_empty' => false,
+      ));
+
+      // メインループのクエリを作成
+      $paged = get_query_var('paged') ? get_query_var('paged') : 1;
+      $args = array(
+        'post_type' => 'voice',
+        'posts_per_page' => 6,
+        'paged' => $paged,
+        'tax_query' => array(),
+      );
+
+      // タクソノミークエリを追加
+      if ($current_term_slug) {
+        $args['tax_query'][] = array(
+          'taxonomy' => $taxonomy,
+          'field' => 'slug',
+          'terms' => $current_term_slug,
+        );
+      }
+
+      $query = new WP_Query($args);
+      ?>
+
       <ul class="sub-voice__tabs tabs">
-        <li class="tabs__tab active"><a href="<?php echo (esc_url(home_url('/campaign/'))) ?>">ALL</a></li>
-        <li class="tabs__tab"><a href="<?php echo get_term_link('license', 'voice_category'); ?>">ライセンス講習</a></li>
-        <li class="tabs__tab"><a href="<?php echo get_term_link('fun', 'voice_category'); ?>">ファンダイビング</a></li>
-        <li class="tabs__tab"><a href="<?php echo get_term_link('trial', 'voice_category'); ?>">体験ダイビング</a></li>
+        <li class="tabs__tab"><a href="<?php echo (esc_url(home_url('/voice/'))) ?>">ALL</a></li>
+        <?php foreach ($terms as $term) : ?>
+          <li class="tabs__tab <?php echo $term->slug === $current_term_slug ? 'active' : ''; ?>">
+            <a href="<?php echo get_term_link($term); ?>">
+              <?php echo $term->name; ?>
+            </a>
+          </li>
+        <?php endforeach; ?>
       </ul>
 
 
@@ -37,35 +82,8 @@
       <!-- タブ　ALL -->
       <div class="sub-voice__contents js-tab-content is-active">
         <!-- カード -->
-        <?php
-        // クエリパラメータからカテゴリーを取得
-        $category = isset($_GET['category']) ? $_GET['category'] : 'all';
-
-        // クエリパラメータからページ番号を取得
-        $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-
-        $args = array(
-          'post_type' => 'voice', // カスタム投稿タイプを指定
-          'posts_per_page' => 6, // すべての投稿を取得
-          'paged' => $paged, // 現在のページ番号
-        );
-
-        // カテゴリーが 'all' でない場合は、特定のカテゴリーに関連する投稿のみを取得
-        if ($category !== 'all') {
-          $args['tax_query'] = array(
-            array(
-              'taxonomy' => 'voice_category', // カスタムタクソノミーを指定
-              'field'    => 'slug',
-              'terms'    => $category,
-            ),
-          );
-        }
-
-        $voice_query = new WP_Query($args);
-
-        if ($voice_query->have_posts()) :
-          while ($voice_query->have_posts()) : $voice_query->the_post();
-        ?>
+        <?php if (have_posts()) :
+          while (have_posts()) : the_post(); ?>
 
             <div class="sub-voice__content voice-card">
               <div class="voice-card__inner">
@@ -98,16 +116,13 @@
         <?php
           endwhile;
         endif;
-
-        // ループ後、リセット
-        wp_reset_postdata();
         ?>
 
       </div>
 
       <!-- ページナビ -->
       <div class="sub-voice__page-navi page-navi">
-        <?php custom_page_navi($voice_query); ?>
+        <?php wp_pagenavi(); ?>
       </div>
     </div>
 

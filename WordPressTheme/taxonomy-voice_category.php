@@ -21,61 +21,43 @@
     <!-- パンくずリスト -->
     <?php get_template_part('parts/breadcrumb') ?>
 
-    <?php
-    $term = get_queried_object();
-    $taxonomy = $term->taxonomy;
-
-    // タームの順序を定義
-    $term_order = array('license', 'fun', 'trial');
-
-    // タームを順序通りに取得するための配列
-    $ordered_terms = array();
-
-    // 全てのタームを取得
-    $terms = get_terms(array(
-        'taxonomy' => $taxonomy,
-        'hide_empty' => false,
-    ));
-
-    // タームを順序通りに並べ替え
-    foreach ($term_order as $slug) {
-        foreach ($terms as $term_obj) {
-            if ($term_obj->slug === $slug) {
-                $ordered_terms[] = $term_obj;
-                break;
-            }
-        }
-    }
-
-    // 現在のタームを取得
-    $current_term_slug = $term->slug;
-
-    // メインループのクエリを作成
-    $paged = get_query_var('paged') ? get_query_var('paged') : 1;
-    $args = array(
-        'post_type' => 'post',
-        'posts_per_page' => 6,
-        'paged' => $paged,
-        'tax_query' => array(
-            array(
-                'taxonomy' => $taxonomy,
-                'field' => 'slug',
-                'terms' => $current_term_slug,
-            ),
-        ),
-    );
-
-    $query = new WP_Query($args);
-
-    ?>
-
-
     <!-- Voice -->
     <section class="sub-voice lower-voice">
         <div class="sub-voice__inner inner">
+            <?php
+            $term = get_queried_object();
+            $taxonomy = 'voice_category';
+
+            // 全てのタームを取得
+            $terms = get_terms(array(
+                'taxonomy' => $taxonomy,
+                'hide_empty' => false,
+            ));
+
+            // 現在のタームを取得
+            $current_term_slug = $term->slug;
+
+            // メインループのクエリを作成
+            $paged = get_query_var('paged') ? get_query_var('paged') : 1;
+            $args = array(
+                'post_type' => 'voice',
+                'posts_per_page' => 6,
+                'paged' => $paged,
+                'tax_query' => array(
+                    array(
+                        'taxonomy' => $taxonomy,
+                        'field' => 'slug',
+                        'terms' => $current_term_slug,
+                    ),
+                ),
+            );
+
+            $query = new WP_Query($args);
+            ?>
+
             <ul class="sub-voice__tabs tabs">
                 <li class="tabs__tab"><a href="<?php echo (esc_url(home_url('/voice/'))) ?>">ALL</a></li>
-                <?php foreach ($ordered_terms as $term) : ?>
+                <?php foreach ($terms as $term) : ?>
                     <li class="tabs__tab <?php echo $term->slug === $current_term_slug ? 'active' : ''; ?>">
                         <a href="<?php echo get_term_link($term); ?>">
                             <?php echo $term->name; ?>
@@ -83,8 +65,6 @@
                     </li>
                 <?php endforeach; ?>
             </ul>
-
-
 
             <!-- タブ　ALL -->
             <div class="sub-voice__contents js-tab-content is-active">
@@ -131,10 +111,7 @@
 
             <!-- ページナビ -->
             <div class="sub-voice__page-navi page-navi">
-                <?php
-                // ページナビゲーションを表示
-                custom_page_navi($query);
-                ?>
+                <?php wp_pagenavi(); ?>
             </div>
         </div>
 

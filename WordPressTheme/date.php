@@ -63,7 +63,7 @@
                     <!-- ページナビ -->
 
                     <div class="sub-blog__page-navi page-navi">
-                        <?php custom_page_navi(); ?>
+                        <?php wp_pagenavi(); ?>
                     </div>
 
                 </section>

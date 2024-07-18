@@ -28,35 +28,27 @@
       <!-- アコーディオン -->
       <ul class="sub-faq__accordion">
         <?php
-        if (have_posts()) :
-          while (have_posts()) : the_post(); ?>
-            <?php
-            $faqs = SCF::get('faq-group'); // 繰り返しフィールドのデータを取得
-            if (!empty($faqs)) {
-              foreach ($faqs as $faq) {
-                $question = esc_html($faq['faq-question']); // フィールド 'faq-question' の値を取得
-                $answer = esc_html($faq['faq-answer']); // フィールド 'faq-answer' の値を取得
-            ?>
-                <li class="sub-faq__list">
-                  <div class="sub-faq__contents">
+        $faqs = SCF::get('faq-group'); // 繰り返しフィールドのデータを取得
+        if (!empty($faqs)) :
+          foreach ($faqs as $faq) :
+            $question = esc_html($faq['faq-question']); // フィールド 'faq-question' の値を取得
+            $answer = esc_html($faq['faq-answer']); // フィールド 'faq-answer' の値を取得
+        ?>
+            <li class="sub-faq__list">
+              <div class="sub-faq__contents">
 
-                    <h2 data-field="faq-question" class="sub-faq__title js-accordion"><?php echo nl2br($question); ?></h2>
-                    <div data-field="faq-answer" class="sub-faq__text">
-                      <p>
-                        <?php echo $answer; ?>
-                      </p>
-                    </div>
-                  </div>
-                </li>
-            <?php
-              }
-            }
-            ?>
+                <h2 data-field="faq-question" class="sub-faq__title js-accordion"><?php echo nl2br($question); ?></h2>
+                <div data-field="faq-answer" class="sub-faq__text">
+                  <p>
+                    <?php echo $answer; ?>
+                  </p>
+                </div>
+              </div>
+            </li>
         <?php
-          endwhile;
+          endforeach;
         endif;
         ?>
-
       </ul>
     </div>
   </section>

@@ -27,7 +27,13 @@
 
             <?php
             $term = get_queried_object();
-            $taxonomy = 'campaign_category';
+            $taxonomy = $term->taxonomy;
+
+            // タームの順序を定義
+            $term_order = array('license', 'fun', 'trial');
+
+            // タームを順序通りに取得するための配列
+            $ordered_terms = array();
 
             // 全てのタームを取得
             $terms = get_terms(array(
@@ -35,13 +41,23 @@
                 'hide_empty' => false,
             ));
 
+            // タームを順序通りに並べ替え
+            foreach ($term_order as $slug) {
+                foreach ($terms as $term_obj) {
+                    if ($term_obj->slug === $slug) {
+                        $ordered_terms[] = $term_obj;
+                        break;
+                    }
+                }
+            }
+
             // 現在のタームを取得
             $current_term_slug = $term->slug;
 
             // メインループのクエリを作成
             $paged = get_query_var('paged') ? get_query_var('paged') : 1;
             $args = array(
-                'post_type' => 'campaign',
+                'post_type' => 'post',
                 'posts_per_page' => 4,
                 'paged' => $paged,
                 'tax_query' => array(
@@ -60,8 +76,8 @@
 
             <!-- タブ -->
             <ul class="sub-campaign__tabs tabs">
-                <li class="tabs__tab"><a href="<?php echo esc_url(home_url('/campaign/')); ?>">ALL</a></li>
-                <?php foreach ($terms as $term) : ?>
+                <li class="tabs__tab"><a href="<?php echo (esc_url(home_url('/campaign/'))) ?>">ALL</a></li>
+                <?php foreach ($ordered_terms as $term) : ?>
                     <li class="tabs__tab <?php echo $term->slug === $current_term_slug ? 'active' : ''; ?>">
                         <a href="<?php echo get_term_link($term); ?>">
                             <?php echo $term->name; ?>
@@ -127,7 +143,10 @@
 
             <!-- ページナビ -->
             <div class="sub-campaign__page-navi page-navi">
-                <?php wp_pagenavi(); ?>
+                <?php
+                // ページナビゲーションを表示
+                custom_page_navi($query);
+                ?>
             </div>
 
 

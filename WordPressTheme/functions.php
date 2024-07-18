@@ -40,45 +40,44 @@ function my_setup()
 add_action('after_setup_theme', 'my_setup');
 
 // PageNaviの指定
-function custom_page_navi()
-{
-    global $wp_query;
-    // var_dump($wp_query); // クエリの内容を確認
-    $big = 999999999; // 必要なほど大きな整数
+// function custom_page_navi()
+// {
+//     global $wp_query;
+//     // var_dump($wp_query); // クエリの内容を確認
+//     $big = 999999999; // 必要なほど大きな整数
 
-    $pages = paginate_links(array(
-        'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-        'format' => '?paged=%#%',
-        'current' => max(1, get_query_var('paged')),
-        'total' => $wp_query->max_num_pages,
-        'type' => 'array',
-        'before_page_number' => '',
-        'after_page_number' => '',
-        'prev_next' => false, // 次・前のリンクを生成しない
-    ));
+//     $pages = paginate_links(array(
+//         'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+//         'format' => '?paged=%#%',
+//         'current' => max(1, get_query_var('paged')),
+//         'total' => $wp_query->max_num_pages,
+//         'type' => 'array',
+//         'before_page_number' => '',
+//         'after_page_number' => '',
+//         'prev_next' => false, // 次・前のリンクを生成しない
+//     ));
 
-    if (is_array($pages)) {
-        $prev_link = get_previous_posts_page_link();
-        $next_link = get_next_posts_page_link();
+//     if (is_array($pages)) {
+//         $prev_link = get_previous_posts_page_link();
+//         $next_link = get_next_posts_page_link();
 
-        echo '<div class="sub-blog__page-navi page-navi">';
+//         echo '<div class="sub-blog__page-navi page-navi">';
 
-        if ($prev_link) {
-            echo '<a href="' . esc_url($prev_link) . '" class="page-navi__prev"><span></span></a>';
-        }
+//         if ($prev_link) {
+//             echo '<a href="' . esc_url($prev_link) . '" class="page-navi__prev"><span></span></a>';
+//         }
 
-        foreach ($pages as $page) {
-            echo $page;
-        }
+//         foreach ($pages as $page) {
+//             echo $page;
+//         }
 
-        if ($next_link) {
-            echo '<a href="' . esc_url($next_link) . '" class="page-navi__next"><span></span></a>';
-        }
+//         if ($next_link) {
+//             echo '<a href="' . esc_url($next_link) . '" class="page-navi__next"><span></span></a>';
+//         }
 
-        echo '</div>';
-    }
-}
-
+//         echo '</div>';
+//     }
+// }
 
 //アーカイブの表示件数変更
 function change_posts_per_page($query)

@@ -24,39 +24,34 @@ $contact = esc_url(home_url('/contact/'));
         <!-- Swiper -->
         <div class="swiper js-mv-swiper">
           <div class="swiper-wrapper">
-            <?php if (have_posts()) :
-              while (have_posts()) : the_post(); ?>
-                <div class="swiper-slide">
-                  <picture>
-                    <source media="(max-width: 767px)" srcset="<?php esc_url(the_field('mv-sp_1')); ?>">
-                    <source media="(min-width: 768px)" srcset="<?php esc_url(the_field('mv-pc_1')); ?>">
-                    <img src="<?php esc_url(the_field('mv-pc_1')); ?>" alt="">
-                  </picture>
-                </div>
-                <div class="swiper-slide">
-                  <picture>
-                    <source media="(max-width: 767px)" srcset="<?php esc_url(the_field('mv-sp_2')); ?>">
-                    <source media="(min-width: 768px)" srcset="<?php esc_url(the_field('mv-pc_2')); ?>">
-                    <img src="<?php esc_url(the_field('mv-pc_2')); ?>" alt="">
-                  </picture>
-                </div>
-                <div class="swiper-slide">
-                  <picture>
-                    <source media="(max-width: 767px)" srcset="<?php esc_url(the_field('mv-sp_3')); ?>">
-                    <source media="(min-width: 768px)" srcset="<?php esc_url(the_field('mv-pc_3')); ?>">
-                    <img src="<?php esc_url(the_field('mv-pc_3')); ?>" alt="">
-                  </picture>
-                </div>
-                <div class="swiper-slide">
-                  <picture>
-                    <source media="(max-width: 767px)" srcset="<?php esc_url(the_field('mv-sp_4')); ?>">
-                    <source media="(min-width: 768px)" srcset="<?php esc_url(the_field('mv-pc_4')); ?>">
-                    <img src="<?php esc_url(the_field('mv-pc_5')); ?>" alt="">
-                  </picture>
-                </div>
-            <?php endwhile;
-            endif; ?>
-
+            <div class="swiper-slide">
+              <picture>
+                <source media="(max-width: 767px)" srcset="<?php esc_url(the_field('mv-sp_1')); ?>">
+                <source media="(min-width: 768px)" srcset="<?php esc_url(the_field('mv-pc_1')); ?>">
+                <img src="<?php esc_url(the_field('mv-pc_1')); ?>" alt="">
+              </picture>
+            </div>
+            <div class="swiper-slide">
+              <picture>
+                <source media="(max-width: 767px)" srcset="<?php esc_url(the_field('mv-sp_2')); ?>">
+                <source media="(min-width: 768px)" srcset="<?php esc_url(the_field('mv-pc_2')); ?>">
+                <img src="<?php esc_url(the_field('mv-pc_2')); ?>" alt="">
+              </picture>
+            </div>
+            <div class="swiper-slide">
+              <picture>
+                <source media="(max-width: 767px)" srcset="<?php esc_url(the_field('mv-sp_3')); ?>">
+                <source media="(min-width: 768px)" srcset="<?php esc_url(the_field('mv-pc_3')); ?>">
+                <img src="<?php esc_url(the_field('mv-pc_3')); ?>" alt="">
+              </picture>
+            </div>
+            <div class="swiper-slide">
+              <picture>
+                <source media="(max-width: 767px)" srcset="<?php esc_url(the_field('mv-sp_4')); ?>">
+                <source media="(min-width: 768px)" srcset="<?php esc_url(the_field('mv-pc_4')); ?>">
+                <img src="<?php esc_url(the_field('mv-pc_5')); ?>" alt="">
+              </picture>
+            </div>
           </div>
         </div>
       </div>
@@ -124,8 +119,6 @@ $contact = esc_url(home_url('/contact/'));
             <?php endif; ?>
             <?php wp_reset_postdata(); ?>
             <!-- ループ終了 -->
-
-
 
           </div>
         </div>
@@ -360,38 +353,28 @@ $contact = esc_url(home_url('/contact/'));
             <div class="price__subtitle">ライセンス講習</div>
             <!-- 説明リスト -->
             <div class="price__list">
-              <?php
-              if (have_posts()) :
-                while (have_posts()) : the_post(); ?>
-
-                  <?php
-                  $page_id = get_page_by_path('price');
-                  $page_id = $page_id->ID;
-                  ?>
-
-                  <?php
-                  $licenses = SCF::get('license-group', $page_id); // 繰り返しフィールドのデータを取得
-                  if (!empty($licenses)) {
-                    foreach ($licenses as $license) {
-                      $menu = esc_html($license['license-menu']); // フィールド 'license-menu' の値を取得
-                      $price_item = esc_html($license['license-price']); // フィールド 'trial-price' の値を取得
-                  ?>
-
-                      <dl>
-                        <dt data-field="license-menu"><?php echo nl2br($menu); ?></dt>
-                        <dd data-field="license-price"><?php echo $price_item; ?></dd>
-                      </dl>
-
-                  <?php
-                    }
-                  }
-                  ?>
 
               <?php
-                endwhile;
-              endif;
+              $page_id = get_page_by_path('price');
+              $page_id = $page_id->ID;
               ?>
 
+              <?php
+              $licenses = SCF::get('license-group', $page_id); // 繰り返しフィールドのデータを取得
+              if (!empty($licenses)) :
+                foreach ($licenses as $license) :
+                  $menu = esc_html($license['license-menu']); // フィールド 'license-menu' の値を取得
+                  $price_item = esc_html($license['license-price']); // フィールド 'trial-price' の値を取得
+              ?>
+
+                  <dl>
+                    <dt data-field="license-menu"><?php echo nl2br($menu); ?></dt>
+                    <dd data-field="license-price"><?php echo $price_item; ?></dd>
+                  </dl>
+              <?php
+                endforeach;
+              endif;
+              ?>
             </div>
           </div>
           <!-- 2個目 -->
@@ -400,34 +383,27 @@ $contact = esc_url(home_url('/contact/'));
 
             <!-- 説明リスト -->
             <div class="price__list">
-              <?php
-              if (have_posts()) :
-                while (have_posts()) : the_post(); ?>
-
-                  <?php
-                  $page_id = get_page_by_path('price');
-                  $page_id = $page_id->ID;
-                  ?>
-                  <?php
-                  $trials = SCF::get('trial-group', $page_id); // 繰り返しフィールドのデータを取得
-                  if (!empty($trials)) {
-                    foreach ($trials as $trial) {
-                      $menu = esc_html($trial['trial-menu']); // フィールド 'trial-menu' の値を取得
-                      $price_item = esc_html($trial['trial-price']); // フィールド 'trial-price' の値を取得
-                  ?>
-                      <dl>
-                        <dt data-field="trial-menu"><?php echo nl2br($menu); ?></dt>
-                        <dd data-field="trial-menu"><?php echo $price_item; ?></dd>
-                      </dl>
-                  <?php
-                    }
-                  }
-                  ?>
 
               <?php
-                endwhile;
+              $page_id = get_page_by_path('price');
+              $page_id = $page_id->ID;
+              ?>
+              <?php
+              $trials = SCF::get('trial-group', $page_id); // 繰り返しフィールドのデータを取得
+              if (!empty($trials)) :
+                foreach ($trials as $trial) :
+                  $menu = esc_html($trial['trial-menu']); // フィールド 'trial-menu' の値を取得
+                  $price_item = esc_html($trial['trial-price']); // フィールド 'trial-price' の値を取得
+              ?>
+                  <dl>
+                    <dt data-field="trial-menu"><?php echo nl2br($menu); ?></dt>
+                    <dd data-field="trial-menu"><?php echo $price_item; ?></dd>
+                  </dl>
+              <?php
+                endforeach;
               endif;
               ?>
+
             </div>
           </div>
           <!-- 3個目 -->
@@ -436,34 +412,27 @@ $contact = esc_url(home_url('/contact/'));
 
             <!-- 説明リスト -->
             <div class="price__list">
-              <?php
-              if (have_posts()) :
-                while (have_posts()) : the_post(); ?>
-
-                  <?php
-                  $page_id = get_page_by_path('price');
-                  $page_id = $page_id->ID;
-                  ?>
-                  <?php
-                  $funs = SCF::get('fun-group', $page_id); // 繰り返しフィールドのデータを取得
-                  if (!empty($funs)) {
-                    foreach ($funs as $fun) {
-                      $menu = esc_html($fun['fun-menu']); // フィールド 'fun-menu' の値を取得
-                      $price_item = esc_html($fun['fun-price']); // フィールド 'fun-price' の値を取得
-                  ?>
-                      <dl>
-                        <dt data-field="fun-menu"><?php echo nl2br($menu); ?></dt>
-                        <dd data-field="fun-menu"><?php echo $price_item; ?></dd>
-                      </dl>
-                  <?php
-                    }
-                  }
-                  ?>
 
               <?php
-                endwhile;
+              $page_id = get_page_by_path('price');
+              $page_id = $page_id->ID;
+              ?>
+              <?php
+              $funs = SCF::get('fun-group', $page_id); // 繰り返しフィールドのデータを取得
+              if (!empty($funs)) :
+                foreach ($funs as $fun) :
+                  $menu = esc_html($fun['fun-menu']); // フィールド 'fun-menu' の値を取得
+                  $price_item = esc_html($fun['fun-price']); // フィールド 'fun-price' の値を取得
+              ?>
+                  <dl>
+                    <dt data-field="fun-menu"><?php echo nl2br($menu); ?></dt>
+                    <dd data-field="fun-menu"><?php echo $price_item; ?></dd>
+                  </dl>
+              <?php
+                endforeach;
               endif;
               ?>
+
             </div>
           </div>
           <!-- 4個目 -->
@@ -472,32 +441,25 @@ $contact = esc_url(home_url('/contact/'));
 
             <!-- 説明リスト -->
             <div class="price__list">
-              <?php
-              if (have_posts()) :
-                while (have_posts()) : the_post(); ?>
-
-                  <?php
-                  $page_id = get_page_by_path('price');
-                  $page_id = $page_id->ID;
-                  ?>
-                  <?php
-                  $specials = SCF::get('special-group', $page_id); // 繰り返しフィールドのデータを取得
-                  if (!empty($specials)) {
-                    foreach ($specials as $special) {
-                      $menu = esc_html($special['special-menu']); // フィールド 'special-menu' の値を取得
-                      $price_item = esc_html($special['special-price']); // フィールド 'special-price' の値を取得
-                  ?>
-                      <dl>
-                        <dt data-field="special-menu"><?php echo nl2br($menu); ?></dt>
-                        <dd data-field="special-menu"><?php echo $price_item; ?></dd>
-                      </dl>
-                  <?php
-                    }
-                  }
-                  ?>
 
               <?php
-                endwhile;
+              $page_id = get_page_by_path('price');
+              $page_id = $page_id->ID;
+              ?>
+              <?php
+              $specials = SCF::get('special-group', $page_id); // 繰り返しフィールドのデータを取得
+              if (!empty($specials)) :
+                foreach ($specials as $special) :
+                  // フィールド 'special-menu' の値を取得
+                  $menu = esc_html($special['special-menu']);
+                  // フィールド 'special-price' の値を取得
+                  $price_item = esc_html($special['special-price']);                   ?>
+                  <dl>
+                    <dt data-field="special-menu"><?php echo nl2br($menu); ?></dt>
+                    <dd data-field="special-menu"><?php echo $price_item; ?></dd>
+                  </dl>
+              <?php
+                endforeach;
               endif;
               ?>
             </div>

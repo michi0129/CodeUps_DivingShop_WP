@@ -50,8 +50,9 @@
     background-color: $green;
     padding: rem(18) rem(60) rem(20) rem(16);
     cursor: pointer;
+
     @include mq(md) {
-        padding: rem(29) rem(28) rem(29) rem(40);
+        padding: rem(29) rem(85) rem(29) rem(40);
         font-size: rem(20);
 
     }
@@ -67,6 +68,7 @@
     width: rem(28);
     height: rem(1);
     background-color: $white;
+
     @include mq(md) {
         width: rem(30);
         right: rem(40);
@@ -100,6 +102,7 @@
     padding: rem(24) rem(16) rem(22) rem(16);
     line-height: 1.45;
     border: 1px solid $green;
+
     @include mq(md) {
         margin-top: rem(16);
         padding: rem(40) rem(40) rem(38);

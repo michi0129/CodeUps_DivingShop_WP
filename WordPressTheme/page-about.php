@@ -63,38 +63,35 @@
         <div class="section-title__japanese">フォト</div>
       </div>
       <div class="gallery__items">
-        <?php if (have_posts()) : ?>
-          <?php while (have_posts()) : the_post(); ?>
+        <?php
+        // 'gallery-group'という繰り返しフィールドの値を取得
+        $gallery_items = SCF::get('gallery-group', get_the_ID());
+        ?>
+
+        <?php if (!empty($gallery_items) && is_array($gallery_items)) : ?>
+          <?php foreach ($gallery_items as $gallery_item) : ?>
             <?php
-            // 'gallery-group'という繰り返しフィールドの値を取得
-            $gallery_items = SCF::get('gallery-group', get_the_ID());
+            // 画像フィールド 'gallery-item' のIDを取得
+            $image_id = $gallery_item['gallery-item'];
+
+            if ($image_id) :
+              // 画像のURL、幅、高さを取得
+              $image_url = wp_get_attachment_image_src($image_id, 'full');
+
+              if ($image_url) :
+                // 画像のURLを取得
+                $image_src = esc_url($image_url[0]);
             ?>
-
-            <?php if (!empty($gallery_items) && is_array($gallery_items)) : ?>
-              <?php foreach ($gallery_items as $gallery_item) : ?>
-                <?php
-                // 画像フィールド 'gallery-item' のIDを取得
-                $image_id = $gallery_item['gallery-item'];
-
-                if ($image_id) :
-                  // 画像のURL、幅、高さを取得
-                  $image_url = wp_get_attachment_image_src($image_id, 'full');
-
-                  if ($image_url) :
-                    // 画像のURLを取得
-                    $image_src = esc_url($image_url[0]);
-                ?>
-                    <div class="gallery__item">
-                      <a href="<?php echo $image_src; ?>" class="js-gallery" data-group="js-gallery-1">
-                        <img src="<?php echo $image_src; ?>" alt="ギャラリー画像">
-                      </a>
-                    </div>
-                  <?php endif; ?>
-                <?php endif; ?>
-              <?php endforeach; ?>
+                <div class="gallery__item">
+                  <a href="<?php echo $image_src; ?>" class="js-gallery" data-group="js-gallery-1">
+                    <img src="<?php echo $image_src; ?>" alt="ギャラリー画像">
+                  </a>
+                </div>
+              <?php endif; ?>
             <?php endif; ?>
-          <?php endwhile; ?>
+          <?php endforeach; ?>
         <?php endif; ?>
+
       </div>
     </div>
   </section>

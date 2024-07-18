@@ -32,58 +32,41 @@
         <table class="sub-price__table">
           <tbody>
             <?php
-            if (have_posts()) :
-              while (have_posts()) : the_post(); ?>
-                <?php
-                $licenses = SCF::get('license-group'); // 繰り返しフィールドのデータを取得
-                if (!empty($licenses)) {
-                  foreach ($licenses as $license) {
-                    $menu = esc_html($license['license-menu']); // フィールド 'license-menu' の値を取得
-                    $price = esc_html($license['license-price']); // フィールド 'license-price' の値を取得
-                ?>
-                    <tr>
-                      <th data-field="license-menu"><?php echo nl2br($menu); ?></th>
-                      <td data-field="license-price"><?php echo $price; ?></td>
-                    </tr>
-                <?php
-                  }
-                }
-                ?>
+            $licenses = SCF::get('license-group'); // 繰り返しフィールドのデータを取得
+            if (!empty($licenses)) :
+              foreach ($licenses as $license) :
+                $menu = esc_html($license['license-menu']); // フィールド 'license-menu' の値を取得
+                $price = esc_html($license['license-price']); // フィールド 'license-price' の値を取得
+            ?>
+                <tr>
+                  <th data-field="license-menu"><?php echo nl2br($menu); ?></th>
+                  <td data-field="license-price"><?php echo $price; ?></td>
+                </tr>
+            <?php
+              endforeach;
+            endif;
+            ?>
           </tbody>
         </table>
-    <?php
-              endwhile;
-            endif;
-    ?>
-
       </div>
 
       <div id="trial" class="sub-price__contents">
         <h2 class="sub-price__title sub-price__title--trial"><span>体験ダイビング</span></h2>
         <table class="sub-price__table">
           <?php
-          if (have_posts()) :
-            while (have_posts()) : the_post(); ?>
+          $trials = SCF::get('trial-group'); // 繰り返しフィールドのデータを取得
+          if (!empty($trials)) :
+            foreach ($trials as $trial) :
+              $menu = esc_html($trial['trial-menu']); // フィールド 'trial-menu' の値を取得
+              $price = esc_html($trial['trial-price']); // フィールド 'trial-price' の値を取得
+          ?>
 
-              <?php
-              $trials = SCF::get('trial-group'); // 繰り返しフィールドのデータを取得
-              if (!empty($trials)) {
-                foreach ($trials as $trial) {
-                  $menu = esc_html($trial['trial-menu']); // フィールド 'trial-menu' の値を取得
-                  $price = esc_html($trial['trial-price']); // フィールド 'trial-price' の値を取得
-              ?>
-
-                  <tr>
-                    <th data-field="trial-menu"><?php echo nl2br($menu); ?></th>
-                    <td data-field="trial-menu"><?php echo $price; ?></td>
-                  </tr>
-              <?php
-                }
-              }
-              ?>
-
+              <tr>
+                <th data-field="trial-menu"><?php echo nl2br($menu); ?></th>
+                <td data-field="trial-menu"><?php echo $price; ?></td>
+              </tr>
           <?php
-            endwhile;
+            endforeach;
           endif;
           ?>
 
@@ -94,28 +77,19 @@
         <h2 class="sub-price__title sub-price__title--fun"><span>ファンダイビング</span></h2>
         <table class="sub-price__table">
           <?php
-          if (have_posts()) :
-            while (have_posts()) : the_post(); ?>
+          $funs = SCF::get('fun-group'); // 繰り返しフィールドのデータを取得
+          if (!empty($funs)) :
+            foreach ($funs as $fun) :
+              $menu = esc_html($fun['fun-menu']); // フィールド 'fun-menu' の値を取得
+              $price = esc_html($fun['fun-price']); // フィールド 'fun-price' の値を取得
+          ?>
 
-              <?php
-              $funs = SCF::get('fun-group'); // 繰り返しフィールドのデータを取得
-              if (!empty($funs)) {
-                foreach ($funs as $fun) {
-                  $menu = esc_html($fun['fun-menu']); // フィールド 'fun-menu' の値を取得
-                  $price = esc_html($fun['fun-price']); // フィールド 'fun-price' の値を取得
-              ?>
-
-                  <tr>
-                    <th data-field="fun-menu"><?php echo nl2br($menu); ?></th>
-                    <td data-field="fun-menu"><?php echo $price; ?></td>
-                  </tr>
-              <?php
-                }
-              }
-              ?>
-
+              <tr>
+                <th data-field="fun-menu"><?php echo nl2br($menu); ?></th>
+                <td data-field="fun-menu"><?php echo $price; ?></td>
+              </tr>
           <?php
-            endwhile;
+            endforeach;
           endif;
           ?>
 
@@ -126,28 +100,19 @@
         <h2 class="sub-price__title"><span>スペシャルダイビング</span></h2>
         <table class="sub-price__table">
           <?php
-          if (have_posts()) :
-            while (have_posts()) : the_post(); ?>
+          $specials = SCF::get('special-group'); // 繰り返しフィールドのデータを取得
+          if (!empty($specials)) :
+            foreach ($specials as $special) :
+              $menu = esc_html($special['special-menu']); // フィールド 'special-menu' の値を取得
+              $price = esc_html($special['special-price']); // フィールド 'special-price' の値を取得
+          ?>
+              <tr>
+                <th data-field="special-menu"><?php echo nl2br($menu); ?></th>
+                <td data-field="special-menu"><?php echo $price; ?></td>
 
-              <?php
-              $specials = SCF::get('special-group'); // 繰り返しフィールドのデータを取得
-              if (!empty($specials)) {
-                foreach ($specials as $special) {
-                  $menu = esc_html($special['special-menu']); // フィールド 'special-menu' の値を取得
-                  $price = esc_html($special['special-price']); // フィールド 'special-price' の値を取得
-              ?>
-                  <tr>
-                    <th data-field="special-menu"><?php echo nl2br($menu); ?></th>
-                    <td data-field="special-menu"><?php echo $price; ?></td>
-
-                  </tr>
-              <?php
-                }
-              }
-              ?>
-
+              </tr>
           <?php
-            endwhile;
+            endforeach;
           endif;
           ?>
 

@@ -24,12 +24,57 @@
   <!-- キャンペーン -->
   <section class="sub-campaign lower-campaign">
     <div class="sub-campaign__inner inner">
+
+      <?php
+      // 現在のクエリオブジェクトを取得
+      $term = get_queried_object();
+      $taxonomy = 'campaign_category';
+
+      // オブジェクトの詳細を確認
+      if ($term && isset($term->taxonomy) && $term->taxonomy === $taxonomy) {
+        $current_term_slug = $term->slug;
+      } else {
+        // デフォルトのスラッグを設定（例：すべての投稿を表示するためのデフォルトスラッグ）
+        $current_term_slug = '';
+      }
+
+      // 全てのタームを取得
+      $terms = get_terms(array(
+        'taxonomy' => $taxonomy,
+        'hide_empty' => false,
+      ));
+
+      // メインループのクエリを作成
+      $paged = get_query_var('paged') ? get_query_var('paged') : 1;
+      $args = array(
+        'post_type' => 'campaign',
+        'posts_per_page' => 4,
+        'paged' => $paged,
+        'tax_query' => array(),
+      );
+
+      // タクソノミークエリを追加
+      if ($current_term_slug) {
+        $args['tax_query'][] = array(
+          'taxonomy' => $taxonomy,
+          'field' => 'slug',
+          'terms' => $current_term_slug,
+        );
+      }
+
+      $query = new WP_Query($args);
+      ?>
+
       <!-- タブ -->
       <ul class="sub-campaign__tabs tabs">
-        <li class="tabs__tab active"><a href="<?php echo (esc_url(home_url('/campaign/'))) ?>">ALL</a></li>
-        <li class="tabs__tab"><a href="<?php echo get_term_link('license', 'campaign_category'); ?>">ライセンス講習</a></li>
-        <li class="tabs__tab"><a href="<?php echo get_term_link('fun', 'campaign_category'); ?>">ファンダイビング</a></li>
-        <li class="tabs__tab"><a href="<?php echo get_term_link('trial', 'campaign_category'); ?>">体験ダイビング</a></li>
+        <li class="tabs__tab"><a href="<?php echo esc_url(home_url('/campaign/')); ?>">ALL</a></li>
+        <?php foreach ($terms as $term) : ?>
+          <li class="tabs__tab <?php echo $term->slug === $current_term_slug ? 'active' : ''; ?>">
+            <a href="<?php echo get_term_link($term); ?>">
+              <?php echo $term->name; ?>
+            </a>
+          </li>
+        <?php endforeach; ?>
 
       </ul>
 
@@ -37,35 +82,9 @@
       <div class="sub-campaign__contents js-tab-content is-active">
         <div class="sub-campaign__cards">
 
-          <?php
-          // クエリパラメータからカテゴリーを取得
-          $category = isset($_GET['category']) ? $_GET['category'] : 'all';
+          <?php if (have_posts()) :
+            while (have_posts()) : the_post(); ?>
 
-          // クエリパラメータからページ番号を取得
-          $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-
-          $args = array(
-            'post_type' => 'campaign', // カスタム投稿タイプを指定
-            'posts_per_page' => 4, // 1ページあたりの表示件数を4件に設定
-            'paged' => $paged, // 現在のページ番号
-          );
-
-          // カテゴリーが 'all' でない場合は、特定のカテゴリーに関連する投稿のみを取得
-          if ($category !== 'all') {
-            $args['tax_query'] = array(
-              array(
-                'taxonomy' => 'campaign_category', // カスタムタクソノミーを指定
-                'field'    => 'slug', // フィールド名、'name' か 'slug'
-                'terms'    => $category, //フィルタリングしたいカテゴリー名またはスラッグ
-              ),
-            );
-          }
-
-          $campaign_query = new WP_Query($args);
-
-          if ($campaign_query->have_posts()) :
-            while ($campaign_query->have_posts()) : $campaign_query->the_post();
-          ?>
               <div class="sub-campaign__card campaign-card">
                 <div class="campaign-card__image">
                   <?php if (get_the_post_thumbnail()) : ?>
@@ -105,12 +124,10 @@
                   </div>
                 </div>
               </div>
+
           <?php
             endwhile;
           endif;
-
-          // ループ後、リセット
-          wp_reset_postdata();
           ?>
 
         </div>
@@ -118,7 +135,7 @@
 
       <!-- ページナビ -->
       <div class="sub-campaign__page-navi page-navi">
-        <?php custom_page_navi($campaign_query); ?>
+        <?php wp_pagenavi(); ?>
       </div>
 
 
