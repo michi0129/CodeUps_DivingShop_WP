@@ -1322,6 +1322,11 @@ input::placeholder {
 .gallery__inner {
 	margin: auto;
 	max-width: 37.5rem;
+	position: relative;
+}
+
+.gallery__inner::before {
+	display: none;
 }
 
 .gallery__items {
@@ -2209,10 +2214,6 @@ input::placeholder {
 	font-size: 1rem;
 	letter-spacing: normal;
 	line-height: 1.5;
-}
-
-.sub-about__coral {
-	display: none;
 }
 
 .sub-blog {
@@ -4085,6 +4086,19 @@ select {
 	max-width: 67.5rem;
 }
 
+.gallery__inner::before {
+	background-image: url("../images/common/fish-green2.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	content: "";
+	display: block;
+	height: 8.625rem;
+	position: absolute;
+	right: calc(50% - min(47vw, 40rem));
+	top: -6%;
+	width: 18.8125rem;
+}
+
 .gallery__items {
 	grid-auto-flow: dense; /* 配置方法　横方法に隙間を埋めながら配置 */
 	grid-template-columns: repeat(24, 1fr);
@@ -4407,15 +4421,6 @@ select {
 	color: #fff;
 	letter-spacing: normal;
 	margin-top: 3.1875rem;
-}
-
-.sub-about__coral {
-	bottom: -27%;
-	display: block;
-	height: 8.625rem;
-	position: absolute;
-	right: calc(50% - min(47vw, 40rem));
-	width: 18.8125rem;
 }
 
 .sub-blog__inner {

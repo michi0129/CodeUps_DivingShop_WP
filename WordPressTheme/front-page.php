@@ -23,36 +23,23 @@ $contact = esc_url(home_url('/contact/'));
       <div class="mv__images">
         <!-- Swiper -->
         <div class="swiper js-mv-swiper">
+
+          <?php
+          $slide_count = 4; // スライドの数
+          ?>
+
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <picture>
-                <source media="(max-width: 767px)" srcset="<?php esc_url(the_field('mv-sp_1')); ?>">
-                <source media="(min-width: 768px)" srcset="<?php esc_url(the_field('mv-pc_1')); ?>">
-                <img src="<?php esc_url(the_field('mv-pc_1')); ?>" alt="">
-              </picture>
-            </div>
-            <div class="swiper-slide">
-              <picture>
-                <source media="(max-width: 767px)" srcset="<?php esc_url(the_field('mv-sp_2')); ?>">
-                <source media="(min-width: 768px)" srcset="<?php esc_url(the_field('mv-pc_2')); ?>">
-                <img src="<?php esc_url(the_field('mv-pc_2')); ?>" alt="">
-              </picture>
-            </div>
-            <div class="swiper-slide">
-              <picture>
-                <source media="(max-width: 767px)" srcset="<?php esc_url(the_field('mv-sp_3')); ?>">
-                <source media="(min-width: 768px)" srcset="<?php esc_url(the_field('mv-pc_3')); ?>">
-                <img src="<?php esc_url(the_field('mv-pc_3')); ?>" alt="">
-              </picture>
-            </div>
-            <div class="swiper-slide">
-              <picture>
-                <source media="(max-width: 767px)" srcset="<?php esc_url(the_field('mv-sp_4')); ?>">
-                <source media="(min-width: 768px)" srcset="<?php esc_url(the_field('mv-pc_4')); ?>">
-                <img src="<?php esc_url(the_field('mv-pc_5')); ?>" alt="">
-              </picture>
-            </div>
+            <?php for ($i = 1; $i <= $slide_count; $i++) : ?>
+              <div class="swiper-slide">
+                <picture>
+                  <source media="(max-width: 767px)" srcset="<?php echo esc_url(get_field('mv-sp_' . $i)); ?>">
+                  <source media="(min-width: 768px)" srcset="<?php echo esc_url(get_field('mv-pc_' . $i)); ?>">
+                  <img src="<?php echo esc_url(get_field('mv-pc_' . $i)); ?>" alt="">
+                </picture>
+              </div>
+            <?php endfor; ?>
           </div>
+
         </div>
       </div>
       <div class="mv__catch">
@@ -115,7 +102,9 @@ $contact = esc_url(home_url('/contact/'));
                   </div>
                 </div>
 
-              <?php endwhile; ?>
+              <?php endwhile;
+            else : ?>
+              <p>準備中です</p>
             <?php endif; ?>
             <?php wp_reset_postdata(); ?>
             <!-- ループ終了 -->
@@ -248,7 +237,9 @@ $contact = esc_url(home_url('/contact/'));
               </div>
             </a>
 
-          <?php endwhile; ?>
+          <?php endwhile;
+        else : ?>
+          <p>投稿がありません</p>
         <?php endif; ?>
         <?php wp_reset_postdata(); ?>
         <!-- ループ終了 -->
@@ -314,7 +305,9 @@ $contact = esc_url(home_url('/contact/'));
                 </div>
               </div>
             </div>
-          <?php endwhile; ?>
+          <?php endwhile;
+        else : ?>
+          <p>準備中です</p>
         <?php endif; ?>
         <?php wp_reset_postdata(); ?>
         <!-- ループ終了 -->

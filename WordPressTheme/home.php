@@ -54,8 +54,10 @@
                     </div>
                   </div>
                 </a>
-            <?php endwhile;
-            endif; ?>
+              <?php endwhile;
+            else : ?>
+              <p>投稿はありません</p>
+            <?php endif; ?>
             <!-- ループ終了 -->
 
 
@@ -109,7 +111,9 @@
                     </div>
                   </a>
 
-                <?php endwhile; ?>
+                <?php endwhile;
+              else : ?>
+                <p>投稿はありません</p>
               <?php endif; ?>
               <?php wp_reset_postdata(); ?>
 
@@ -152,7 +156,9 @@
                       </div>
                     </a>
                   <?php endif; ?>
-                <?php endwhile; ?>
+                <?php endwhile;
+              else : ?>
+                <p>準備中です</p>
               <?php endif; ?>
               <?php wp_reset_postdata(); ?>
             </div>
@@ -203,7 +209,9 @@
                       </div>
                     </a>
                   <?php endif; ?>
-                <?php endwhile; ?>
+                <?php endwhile;
+              else : ?>
+                <p>準備中です</p>
               <?php endif; ?>
               <?php wp_reset_postdata(); ?>
 

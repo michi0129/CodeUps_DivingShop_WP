@@ -46,37 +46,29 @@
             </p>
           </div>
         </div>
+
+
+        <div class="sub-about__coral"><img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/fish-green2.png" alt="イソギンチャクのイラスト"></div>
       </div>
     </div>
   </div>
 
   <!-- Gallery -->
-  <?php
-  // 'gallery-group'という繰り返しフィールドの値を取得
-  $gallery_items = SCF::get('gallery-group', get_the_ID());
-  $has_gallery_item = false;
 
-  if (!empty($gallery_items) && is_array($gallery_items)) {
-    foreach ($gallery_items as $gallery_item) {
-      $image_id = $gallery_item['gallery-item'];
-      if ($image_id) {
-        $has_gallery_item = true;
-        break;
-      }
-    }
-  }
+  <section class="gallery lower-gallery">
+    <div class="gallery__inner inner">
+      <!-- セクションタイトル -->
+      <div class="gallery__title section-title">
+        <h2 class="section-title__english section-title__english--about">gallery</h2>
+        <div class="section-title__japanese">フォト</div>
+      </div>
+      <div class="gallery__items">
+        <?php
+        // 'gallery-group'という繰り返しフィールドの値を取得
+        $gallery_items = SCF::get('gallery-group', get_the_ID());
+        ?>
 
-  if ($has_gallery_item) :
-  ?>
-    <section class="gallery lower-gallery">
-      <div class="gallery__inner inner">
-        <!-- セクションタイトル -->
-        <div class="gallery__title section-title">
-          <h2 class="section-title__english section-title__english--about">gallery</h2>
-          <div class="section-title__japanese">フォト</div>
-        </div>
-        <div class="gallery__items">
-
+        <?php if (!empty($gallery_items) && is_array($gallery_items)) : ?>
           <?php foreach ($gallery_items as $gallery_item) : ?>
             <?php
             // 画像フィールド 'gallery-item' のIDを取得
@@ -98,11 +90,11 @@
               <?php endif; ?>
             <?php endif; ?>
           <?php endforeach; ?>
+        <?php endif; ?>
 
-        </div>
       </div>
-    </section>
-  <?php endif; ?>
+    </div>
+  </section>
 
 
   <?php get_footer(); ?>

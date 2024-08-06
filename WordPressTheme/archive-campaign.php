@@ -125,10 +125,10 @@
                 </div>
               </div>
 
-          <?php
-            endwhile;
-          endif;
-          ?>
+            <?php endwhile;
+          else : ?>
+            <p>準備中です</p>
+          <?php endif; ?>
 
         </div>
       </div>

@@ -258,3 +258,19 @@ function get_years_with_posts()
         return array();
     }
 }
+
+// アーカイブタイトルをカスタマイズ
+function custom_archive_title($title)
+{
+    if (is_date()) {
+        if (is_month()) {
+            $title = get_the_date('Y年n月');
+        } elseif (is_year()) {
+            $title = get_the_date('Y年');
+        } elseif (is_day()) {
+            $title = get_the_date('Y年n月j日');
+        }
+    }
+    return $title;
+}
+add_filter('get_the_archive_title', 'custom_archive_title');

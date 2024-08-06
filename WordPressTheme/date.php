@@ -13,7 +13,7 @@
             </div>
             <!-- セクションタイトル -->
             <div class="sub-mv__title section-title">
-                <h1 class="section-title__english section-title__english--white section-title__english--sub">blog</h1>
+                <h1 class="section-title__english section-title__english--white section-title__english--sub"><?php the_archive_title(); ?></h1>
             </div>
         </div>
     </div>
@@ -53,8 +53,10 @@
                                         </div>
                                     </div>
                                 </a>
-                        <?php endwhile;
-                        endif; ?>
+                            <?php endwhile;
+                        else : ?>
+                            <p>投稿がありません</p>
+                        <?php endif; ?>
                         <!-- ループ終了 -->
 
 

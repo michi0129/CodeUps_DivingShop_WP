@@ -139,16 +139,3 @@
         margin-top: rem(51);
     }
 }
-
-.sub-about__coral {
-    display: none;
-
-    @include mq(md) {
-        display: block;
-        width: rem(301);
-        height: rem(138);
-        position: absolute;
-        bottom: -27%;
-        right: calc(50% - min(47vw, rem(640)));
-    }
-}

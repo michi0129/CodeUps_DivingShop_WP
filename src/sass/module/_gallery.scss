@@ -3,11 +3,28 @@
 .gallery__inner {
     max-width: rem(600);
     margin: auto;
+    position: relative;
 
     @include mq(md) {
         max-width: rem(1080);
     }
 }
+
+.gallery__inner::before {
+    display: none;
+    @include mq(md) {
+    content: "";
+    display: block;
+    width: rem(301);
+    height: rem(138);
+    position: absolute;
+    top: -6%;
+    right: calc(50% - min(47vw, rem(640)));
+    background-image: url("../images/common/fish-green2.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    }
+    }
 
 .gallery__items {
     display: grid;

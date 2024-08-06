@@ -25,104 +25,127 @@
   <section class="sub-price lower-price">
     <div class="sub-price__inner inner">
 
-      <div id="license" class="sub-price__contents">
-        <!-- <h2 class="sub-price__title"><span>ライセンス講習</span></h2> -->
-        <h2 class="sub-price__title"><span>ライセンス講習</span></h2>
+      <!-- ライセンス講習 -->
+      <?php
+      $licenses = SCF::get('license-group'); // 繰り返しフィールドのデータを取得
+      $has_license = !empty($licenses) && is_array($licenses) && count(array_filter($licenses, fn ($license) => !empty($license['license-menu']) && !empty($license['license-price']))) > 0;
 
-        <table class="sub-price__table">
-          <tbody>
-            <?php
-            $licenses = SCF::get('license-group'); // 繰り返しフィールドのデータを取得
-            if (!empty($licenses)) :
+      if ($has_license) :
+      ?>
+        <div id="license" class="sub-price__contents">
+          <h2 class="sub-price__title"><span>ライセンス講習</span></h2>
+
+          <table class="sub-price__table">
+            <tbody>
+              <?php
               foreach ($licenses as $license) :
                 $menu = esc_html($license['license-menu']); // フィールド 'license-menu' の値を取得
                 $price = esc_html($license['license-price']); // フィールド 'license-price' の値を取得
-            ?>
-                <tr>
-                  <th data-field="license-menu"><?php echo nl2br($menu); ?></th>
-                  <td data-field="license-price"><?php echo $price; ?></td>
-                </tr>
-            <?php
-              endforeach;
-            endif;
-            ?>
-          </tbody>
-        </table>
-      </div>
 
-      <div id="trial" class="sub-price__contents">
-        <h2 class="sub-price__title sub-price__title--trial"><span>体験ダイビング</span></h2>
-        <table class="sub-price__table">
-          <?php
-          $trials = SCF::get('trial-group'); // 繰り返しフィールドのデータを取得
-          if (!empty($trials)) :
-            foreach ($trials as $trial) :
-              $menu = esc_html($trial['trial-menu']); // フィールド 'trial-menu' の値を取得
-              $price = esc_html($trial['trial-price']); // フィールド 'trial-price' の値を取得
-          ?>
+                if (!empty($menu) && !empty($price)) : // データが空でないか確認
+              ?>
+                  <tr>
+                    <th data-field="license-menu"><?php echo nl2br($menu); ?></th>
+                    <td data-field="license-price"><?php echo $price; ?></td>
+                  </tr>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      <?php endif; ?>
 
-              <tr>
-                <th data-field="trial-menu"><?php echo nl2br($menu); ?></th>
-                <td data-field="trial-menu"><?php echo $price; ?></td>
-              </tr>
-          <?php
-            endforeach;
-          endif;
-          ?>
+      <!-- 体験ダイビング -->
+      <?php
+      $trials = SCF::get('trial-group'); // 繰り返しフィールドのデータを取得
+      $has_trial = !empty($trials) && is_array($trials) && count(array_filter($trials, fn ($trial) => !empty($trial['trial-menu']) && !empty($trial['trial-price']))) > 0;
 
-        </table>
-      </div>
+      if ($has_trial) :
+      ?>
+        <div id="trial" class="sub-price__contents">
+          <h2 class="sub-price__title"><span>体験ダイビング</span></h2>
 
-      <div id="fun" class="sub-price__contents">
-        <h2 class="sub-price__title sub-price__title--fun"><span>ファンダイビング</span></h2>
-        <table class="sub-price__table">
-          <?php
-          $funs = SCF::get('fun-group'); // 繰り返しフィールドのデータを取得
-          if (!empty($funs)) :
-            foreach ($funs as $fun) :
-              $menu = esc_html($fun['fun-menu']); // フィールド 'fun-menu' の値を取得
-              $price = esc_html($fun['fun-price']); // フィールド 'fun-price' の値を取得
-          ?>
+          <table class="sub-price__table">
+            <tbody>
+              <?php
+              foreach ($trials as $trial) :
+                $menu = esc_html($trial['trial-menu']); // フィールド 'trial-menu' の値を取得
+                $price = esc_html($trial['trial-price']); // フィールド 'trial-price' の値を取得
 
-              <tr>
-                <th data-field="fun-menu"><?php echo nl2br($menu); ?></th>
-                <td data-field="fun-menu"><?php echo $price; ?></td>
-              </tr>
-          <?php
-            endforeach;
-          endif;
-          ?>
+                if (!empty($menu) && !empty($price)) : // データが空でないか確認
+              ?>
+                  <tr>
+                    <th data-field="trial-menu"><?php echo nl2br($menu); ?></th>
+                    <td data-field="trial-price"><?php echo $price; ?></td>
+                  </tr>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      <?php endif; ?>
 
-        </table>
-      </div>
+      <!-- ファンダイビング -->
+      <?php
+      $funs = SCF::get('fun-group'); // 繰り返しフィールドのデータを取得
+      $has_fun = !empty($funs) && is_array($funs) && count(array_filter($funs, fn ($fun) => !empty($fun['fun-menu']) && !empty($fun['fun-price']))) > 0;
 
-      <div class="sub-price__contents">
-        <h2 class="sub-price__title"><span>スペシャルダイビング</span></h2>
-        <table class="sub-price__table">
-          <?php
-          $specials = SCF::get('special-group'); // 繰り返しフィールドのデータを取得
-          if (!empty($specials)) :
-            foreach ($specials as $special) :
-              $menu = esc_html($special['special-menu']); // フィールド 'special-menu' の値を取得
-              $price = esc_html($special['special-price']); // フィールド 'special-price' の値を取得
-          ?>
-              <tr>
-                <th data-field="special-menu"><?php echo nl2br($menu); ?></th>
-                <td data-field="special-menu"><?php echo $price; ?></td>
+      if ($has_fun) :
+      ?>
+        <div id="fun" class="sub-price__contents">
+          <h2 class="sub-price__title"><span>ファンダイビング</span></h2>
 
-              </tr>
-          <?php
-            endforeach;
-          endif;
-          ?>
+          <table class="sub-price__table">
+            <tbody>
+              <?php
+              foreach ($funs as $fun) :
+                $menu = esc_html($fun['fun-menu']); // フィールド 'fun-menu' の値を取得
+                $price = esc_html($fun['fun-price']); // フィールド 'fun-price' の値を取得
 
-        </table>
-      </div>
+                if (!empty($menu) && !empty($price)) : // データが空でないか確認
+              ?>
+                  <tr>
+                    <th data-field="fun-menu"><?php echo nl2br($menu); ?></th>
+                    <td data-field="fun-price"><?php echo $price; ?></td>
+                  </tr>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      <?php endif; ?>
 
+      <!-- スペシャルダイビング -->
+      <?php
+      $specials = SCF::get('special-group'); // 繰り返しフィールドのデータを取得
+      $has_special = !empty($specials) && is_array($specials) && count(array_filter($specials, fn ($special) => !empty($special['special-menu']) && !empty($special['special-price']))) > 0;
+
+      if ($has_special) :
+      ?>
+        <div id="special" class="sub-price__contents">
+          <h2 class="sub-price__title"><span>スペシャルダイビング</span></h2>
+
+          <table class="sub-price__table">
+            <tbody>
+              <?php
+              foreach ($specials as $special) :
+                $menu = esc_html($special['special-menu']); // フィールド 'special-menu' の値を取得
+                $price = esc_html($special['special-price']); // フィールド 'special-price' の値を取得
+
+                if (!empty($menu) && !empty($price)) : // データが空でないか確認
+              ?>
+                  <tr>
+                    <th data-field="special-menu"><?php echo nl2br($menu); ?></th>
+                    <td data-field="special-price"><?php echo $price; ?></td>
+                  </tr>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      <?php endif; ?>
 
     </div>
-
   </section>
-
 
   <?php get_footer(); ?>
