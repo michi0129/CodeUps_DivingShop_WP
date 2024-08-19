@@ -104,11 +104,11 @@
                   <div class="campaign-card__contents campaign-card__contents--campaign">
                     <p class="campaign-card__contents-title campaign-card__contents-title--campaign">全部コミコミ(お一人様)</p>
                     <div class="campaign-card__contents-content campaign-card__contents-content--campaign">
-                      <?php if (get_field('normal-price')) : ?>
-                        <p>¥<?php the_field('normal-price'); ?><span></span></p>
+                      <?php if (get_field('normal-amount')) : ?>
+                        <p>¥<?php the_field('normal-amount'); ?><span></span></p>
                       <?php endif; ?>
-                      <?php if (get_field('campaign-price')) : ?>
-                        <p>¥<?php the_field('campaign-price'); ?></p>
+                      <?php if (get_field('campaign-amount')) : ?>
+                        <p>¥<?php the_field('campaign-amount'); ?></p>
                       <?php endif; ?>
                     </div>
                   </div>
